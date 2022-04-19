@@ -1,4 +1,4 @@
-package app.shamilton.adhdtimcard.command
+package app.shamilton.adhdtimecard.command
 
 abstract class Command() {
 
