@@ -8,8 +8,6 @@ import app.shamilton.adhdtimecard.core.TimeEntries;
 import app.shamilton.adhdtimecard.core.TimeEntry;
 
 fun main(args: Array<String>) {
-	// KotlinJsonAdapterFactory is apparently deprecated, saying it has been moved...
-	// Doesn't say where, and I can't find any docs on this. Too bad.
 	val oldEntries = TimeEntries.loadFromFile();
 	println("old entries: ${oldEntries.toString()}");
 

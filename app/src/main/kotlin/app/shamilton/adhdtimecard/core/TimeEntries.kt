@@ -15,6 +15,8 @@ class TimeEntries(
 ) {
 
 	companion object {
+		// KotlinJsonAdapterFactory is apparently deprecated, saying it has been moved...
+		// Doesn't say where, and I can't find any docs on this. Too bad.
 		private val _moshi = Moshi.Builder()
 			.addLast(KotlinJsonAdapterFactory())
 			.build();
