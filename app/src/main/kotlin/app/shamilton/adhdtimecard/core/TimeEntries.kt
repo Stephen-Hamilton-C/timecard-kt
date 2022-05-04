@@ -4,22 +4,24 @@ import com.squareup.moshi.Json;
 import java.io.File;
 import java.nio.file.Paths;
 import java.time.LocalDate;
-import java.time.LocalDateTime
-import java.time.ZoneOffset
 import com.squareup.moshi.JsonAdapter;
 import com.squareup.moshi.Moshi;
 import com.squareup.moshi.KotlinJsonAdapterFactory;
+import app.shamilton.adhdtimecard.core.adapter.LocalTimeAdapter
 
 class TimeEntries(
-	@Json(name="entries") val m_entries: MutableList<TimeEntry> = mutableListOf()
+	@Json(name="entries")
+	public val m_entries: MutableList<TimeEntry> = mutableListOf()
 ) {
 
 	companion object {
 		// KotlinJsonAdapterFactory is apparently deprecated, saying it has been moved...
 		// Doesn't say where, and I can't find any docs on this. Too bad.
 		private val _moshi = Moshi.Builder()
+			.add(LocalTimeAdapter())
 			.addLast(KotlinJsonAdapterFactory())
 			.build();
+			
 		private val _adapter = _moshi.adapter(TimeEntries::class.java);
 		private val _filePath: String = "";
 		private val _fileName: String = "adhd-timecard_${LocalDate.now()}.json";
@@ -40,24 +42,9 @@ class TimeEntries(
 		file.writeText(json);
 	}
 
-	public fun isClockedIn(): Boolean = m_entries.last().m_endTime.toInt() == 0;
+	public fun isClockedIn(): Boolean = m_entries.last().m_endTime == null;
 
 	public fun isClockedOut(): Boolean = !isClockedIn();
-
-	public fun clockIn(time: LocalDateTime = LocalDateTime.now()): Boolean {
-		if(isClockedIn()) return false;
-
-		val newEntry = TimeEntry(time.toEpochSecond(ZoneOffset.UTC));
-		m_entries.add(newEntry);
-		return true;
-	}
-
-	public fun clockOut(time: LocalDateTime = LocalDateTime.now()): Boolean {
-		if(isClockedOut()) return false;
-
-		m_entries.last().m_endTime = time.toEpochSecond(ZoneOffset.UTC);
-		return true;
-	}
 
 	public override fun toString(): String {
 		val entryStrings: MutableList<String> = mutableListOf();

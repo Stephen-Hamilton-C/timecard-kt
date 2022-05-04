@@ -39,7 +39,7 @@ dependencies {
 
 application {
 	// Define the main class for the application.
-	mainClass.set("app.shamilton.adhdtimecard.AppKt")
+	mainClass.set("app.shamilton.adhdtimecard.MainKt")
 }
 
 java {
