@@ -30,6 +30,10 @@ dependencies {
 	implementation("com.squareup.moshi:moshi:1.13.0")
 	implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
 
+	// https://mvnrepository.com/artifact/net.harawata/appdirs
+	implementation("net.harawata:appdirs:1.2.1")
+
+
 	// Use the Kotlin test library.
 	testImplementation("org.jetbrains.kotlin:kotlin-test")
 
@@ -39,7 +43,7 @@ dependencies {
 
 application {
 	// Define the main class for the application.
-	mainClass.set("app.shamilton.adhdtimecard.MainKt")
+	mainClass.set("app.shamilton.timecard.AppKt")
 }
 
 java {

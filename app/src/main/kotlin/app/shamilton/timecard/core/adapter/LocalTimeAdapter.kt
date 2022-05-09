@@ -1,4 +1,4 @@
-package app.shamilton.adhdtimecard.core.adapter;
+package app.shamilton.timecard.core.adapter;
 
 import java.time.LocalTime
 import com.squareup.moshi.ToJson;
