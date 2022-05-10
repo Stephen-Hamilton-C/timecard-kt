@@ -11,6 +11,7 @@ import app.shamilton.timecard.core.adapter.LocalTimeAdapter
 import com.squareup.moshi.JsonAdapter
 import net.harawata.appdirs.AppDirs
 import net.harawata.appdirs.AppDirsFactory
+import java.nio.file.Files
 
 class TimeEntries(
 	@Json(name="entries")
@@ -40,9 +41,15 @@ class TimeEntries(
 
 	fun saveToFile() {
 		val json: String = _adapter.toJson(this)
+		Files.createDirectories(Paths.get(_filePath))
 		val file = File(Paths.get(_filePath, _fileName).toString())
 		file.createNewFile()
 		file.writeText(json)
+	}
+
+	fun deleteFile() {
+		val file = File(Paths.get(_filePath, _fileName).toString())
+		file.delete()
 	}
 
 	fun isClockedIn(): Boolean = if(m_Entries.isNotEmpty()) m_Entries.last().endTime == null else false
