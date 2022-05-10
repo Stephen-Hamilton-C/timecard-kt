@@ -19,9 +19,9 @@ class LogCommand : ICommand {
 		}
 
 		for (entry: TimeEntry in timeEntries.m_Entries) {
-			_t.println(gray("Clocked in: ${entry.startTime.toString()}"))
+			_t.println(green("Clocked ${brightGreen("in")}: ${entry.startTime}"))
 			if(entry.endTime != null){
-				_t.print(gray("Clocked out: ${entry.endTime.toString()}"))
+				_t.println(red("Clocked ${brightRed("out")}: ${entry.endTime}"))
 			}
 		}
 	}
