@@ -5,7 +5,7 @@ import java.time.LocalTime
 
 data class TimeEntry(
 	@Json(name="start_time")
-	public val m_StartTime: LocalTime,
+	val startTime: LocalTime,
 	@Json(name="end_time")
-	public var m_EndTime: LocalTime? = null,
+	var endTime: LocalTime? = null,
 ) {}

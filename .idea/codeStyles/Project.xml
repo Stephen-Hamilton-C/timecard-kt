@@ -37,6 +37,10 @@
       </option>
     </JavaCodeStyleSettings>
     <JetCodeStyleSettings>
+      <option name="SPACE_BEFORE_EXTEND_COLON" value="false" />
+      <option name="NAME_COUNT_TO_USE_STAR_IMPORT" value="2147483647" />
+      <option name="NAME_COUNT_TO_USE_STAR_IMPORT_FOR_MEMBERS" value="2147483647" />
+      <option name="ALLOW_TRAILING_COMMA" value="true" />
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
     </JetCodeStyleSettings>
     <MarkdownNavigatorCodeStyleSettings>
@@ -102,6 +106,10 @@
     </codeStyleSettings>
     <codeStyleSettings language="kotlin">
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
+      <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="true" />
+      </indentOptions>
     </codeStyleSettings>
   </code_scheme>
 </component>

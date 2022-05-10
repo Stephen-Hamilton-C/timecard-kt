@@ -3,7 +3,7 @@
  */
 package app.shamilton.timecard;
 
-import app.shamilton.timecard.command.*
+import app.shamilton.timecard.command.*;
 
 class App() {
 
@@ -13,33 +13,29 @@ class App() {
 	val ARGS: List<String>
 		get() = _args;
 
-	val COMMANDS: List<ICommand> = listOf(
-		StatusCommand(),
-		HelpCommand(),
-		VersionCommand(),
-		ClockInCommand(),
-		ClockOutCommand(),
-	);
-
 	companion object {
 		private var _args: List<String> = listOf()
 	}
 
 	constructor(args: Array<String>): this() {
 		_args = args.asList();
-
-		val commandName: String = if(args.isNotEmpty()) args[0].uppercase() else "STATUS";
-		val foundCommand: ICommand? = COMMANDS.find { it.m_Name == commandName };
-		foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.");
 	};
 
 }
 
+val COMMANDS: List<ICommand> = listOf(
+	StatusCommand(),
+	HelpCommand(),
+	VersionCommand(),
+	ClockInCommand(),
+	ClockOutCommand(),
+	UndoCommand(),
+	LogCommand(),
+);
 
 fun main(args: Array<String>) {
-	// Testing purposes
-	println("args: ${args.joinToString()}");
-	println();
-
 	App(args);
+	val commandName: String = if(args.isNotEmpty()) args[0].uppercase() else "STATUS";
+	val foundCommand: ICommand? = COMMANDS.find { it.m_Name == commandName };
+	foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.");
 }

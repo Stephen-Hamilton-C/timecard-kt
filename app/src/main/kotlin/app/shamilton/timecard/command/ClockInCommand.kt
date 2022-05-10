@@ -2,25 +2,28 @@ package app.shamilton.timecard.command;
 
 import app.shamilton.timecard.core.TimeEntries;
 import app.shamilton.timecard.core.TimeEntry;
-import java.time.LocalTime
+import com.github.ajalt.mordant.rendering.TextColors.red;
+import com.github.ajalt.mordant.terminal.Terminal;
+import java.time.LocalTime;
 
 class ClockInCommand : ICommand {
 	
 	override val m_Name: String = "IN";
-	override val m_Help: String = "";
 
-	private val _timeEntries = TimeEntries.loadFromFile();
+	private val _t = Terminal();
 
 	override fun execute() {
-		if (_timeEntries.isClockedIn()) {
-			println("Already clocked in! Use 'timecard out' to clock out.");
+		val timeEntries = TimeEntries.loadFromFile();
+		if (timeEntries.isClockedIn()) {
+			_t.println(red("Already clocked in!"));
+			println("Use 'timecard out' to clock out.");
 			return
 		};
 
 		val newEntry = TimeEntry(LocalTime.now());
-		_timeEntries.m_Entries.add(newEntry);
+		timeEntries.m_Entries.add(newEntry);
 
-		_timeEntries.saveToFile();
+		timeEntries.saveToFile();
 	}
 
 }

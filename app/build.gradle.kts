@@ -30,9 +30,12 @@ dependencies {
 	implementation("com.squareup.moshi:moshi:1.13.0")
 	implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
 
+	// AppDirs
 	// https://mvnrepository.com/artifact/net.harawata/appdirs
 	implementation("net.harawata:appdirs:1.2.1")
 
+	// Mordant - Colorful Terminal
+	implementation("com.github.ajalt.mordant:mordant:2.0.0-beta6")
 
 	// Use the Kotlin test library.
 	testImplementation("org.jetbrains.kotlin:kotlin-test")
