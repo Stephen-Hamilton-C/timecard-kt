@@ -1,4 +1,4 @@
-package app.shamilton.timecard.core;
+package app.shamilton.timecard.core
 
 import com.squareup.moshi.Json
 import java.time.LocalTime

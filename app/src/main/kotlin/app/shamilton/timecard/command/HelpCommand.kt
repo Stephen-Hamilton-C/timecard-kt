@@ -1,11 +1,11 @@
-package app.shamilton.timecard.command;
+package app.shamilton.timecard.command
 
 class HelpCommand : ICommand {
     
-    override val m_Name: String = "HELP";
+    override val m_Name: String = "HELP"
 
     override fun execute() {
-        TODO("Not implemented yet");
+        TODO("Not implemented yet")
     }
 
 }
