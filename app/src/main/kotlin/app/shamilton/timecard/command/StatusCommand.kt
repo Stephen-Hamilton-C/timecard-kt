@@ -15,8 +15,8 @@ class StatusCommand : ICommand {
         val clockState = if(timeEntries.isClockedIn()) green("in") else red("out")
         _t.println("Currently clocked $clockState.")
 
-        // Print how long worked
-        // Print how many hours to the nearest quarter
+        // TODO: Print how long worked
+        // TODO: Print how many hours to the nearest quarter
     }
 
 }
