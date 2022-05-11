@@ -11,11 +11,13 @@ class App() {
 	val NAME = "timecard"
 	val VERSION = "0.0.1-DEV"
 	val AUTHOR = "stephen-hamilton-c"
-	val ARGS: List<String>
-		get() = _args
 
 	companion object {
 		private var _args: List<String> = listOf()
+	}
+
+	fun getArg(index: Int): String? {
+		return if(_args.size > index) _args[index] else null
 	}
 
 	constructor(args: Array<String>): this() {
