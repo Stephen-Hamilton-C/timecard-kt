@@ -26,11 +26,11 @@ class TimeEntries(
 			.build()
 		private val _adapter: JsonAdapter<TimeEntries> = _moshi.adapter(TimeEntries::class.java)
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		private val _filePath: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
-		private val _fileName: String = "timecard_${LocalDate.now()}.json"
+		val filePath: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
+		val fileName: String = "timecard_${LocalDate.now()}.json"
 
 		@JvmStatic fun loadFromFile(): TimeEntries {
-			val file = File(Paths.get(_filePath, _fileName).toString())
+			val file = File(Paths.get(filePath, fileName).toString())
 			if (file.exists()) {
 				val deserializedEntries: TimeEntries? = _adapter.fromJson(file.readText())
 				return deserializedEntries ?: TimeEntries()
@@ -41,14 +41,14 @@ class TimeEntries(
 
 	fun saveToFile() {
 		val json: String = _adapter.toJson(this)
-		Files.createDirectories(Paths.get(_filePath))
-		val file = File(Paths.get(_filePath, _fileName).toString())
+		Files.createDirectories(Paths.get(filePath))
+		val file = File(Paths.get(filePath, fileName).toString())
 		file.createNewFile()
 		file.writeText(json)
 	}
 
 	fun deleteFile() {
-		val file = File(Paths.get(_filePath, _fileName).toString())
+		val file = File(Paths.get(filePath, fileName).toString())
 		file.delete()
 	}
 
