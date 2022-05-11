@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit
 class ClockInCommand : ICommand {
 	
 	override val m_Name: String = "IN"
+	override val m_Help: String = "" // TODO
 
 	private val _t = Terminal()
 

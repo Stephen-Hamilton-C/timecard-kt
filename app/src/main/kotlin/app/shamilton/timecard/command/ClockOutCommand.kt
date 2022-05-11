@@ -10,6 +10,7 @@ import java.time.temporal.ChronoUnit
 class ClockOutCommand : ICommand {
 	
 	override val m_Name: String = "OUT"
+	override val m_Help: String = "" // TODO
 
 	private val _t = Terminal()
 

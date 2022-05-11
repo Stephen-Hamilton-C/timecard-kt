@@ -8,6 +8,7 @@ import com.github.ajalt.mordant.terminal.Terminal
 class UndoCommand : ICommand {
 
 	override val m_Name: String = "UNDO"
+	override val m_Help: String = "" // TODO
 
 	private val _t = Terminal()
 

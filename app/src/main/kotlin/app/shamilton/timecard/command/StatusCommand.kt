@@ -7,6 +7,7 @@ import app.shamilton.timecard.core.TimeEntries
 class StatusCommand : ICommand {
 
     override val m_Name: String = "STATUS"
+    override val m_Help: String = "" // TODO
 
     private val _t = Terminal()
 
