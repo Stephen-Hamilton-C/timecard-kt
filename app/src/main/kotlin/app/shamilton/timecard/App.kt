@@ -3,7 +3,8 @@
  */
 package app.shamilton.timecard
 
-import app.shamilton.timecard.command.*
+import app.shamilton.timecard.command.CommandList
+import app.shamilton.timecard.command.ICommand
 
 class App() {
 
@@ -23,19 +24,9 @@ class App() {
 
 }
 
-val COMMANDS: List<ICommand> = listOf(
-	StatusCommand(),
-	HelpCommand(),
-	VersionCommand(),
-	ClockInCommand(),
-	ClockOutCommand(),
-	UndoCommand(),
-	LogCommand(),
-)
-
 fun main(args: Array<String>) {
 	App(args)
 	val commandName: String = if(args.isNotEmpty()) args[0].uppercase() else "STATUS"
-	val foundCommand: ICommand? = COMMANDS.find { it.m_Name == commandName }
+	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
 	foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.")
 }
