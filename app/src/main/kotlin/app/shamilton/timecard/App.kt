@@ -14,21 +14,32 @@ class App() {
 
 	companion object {
 		private var _args: List<String> = listOf()
+		private var _argsInitialized: Boolean = false
 	}
 
+	/**
+	 * Retrieves an argument as all uppercase or null if not present.
+	 * 0 is the name of the ICommand
+	 */
 	fun getArg(index: Int): String? {
-		return if(_args.size > index) _args[index] else null
+		return if(_args.size > index) _args[index].uppercase() else null
 	}
 
+	/**
+	 * Initializes the argument list.
+	 * This will throw an IllegalCallerException if not called in main.
+	 */
 	constructor(args: Array<String>): this() {
+		if(_argsInitialized) throw IllegalCallerException("App(args) constructor can only be called by main!")
 		_args = args.asList()
+		_argsInitialized = true
 	}
 
 }
 
 fun main(args: Array<String>) {
-	App(args)
-	val commandName: String = if(args.isNotEmpty()) args[0].uppercase() else "STATUS"
+	val app = App(args)
+	val commandName: String = app.getArg(0) ?: "STATUS"
 	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
 	foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.")
 }
