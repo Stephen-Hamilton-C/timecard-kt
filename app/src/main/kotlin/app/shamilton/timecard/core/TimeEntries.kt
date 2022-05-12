@@ -23,10 +23,10 @@ class TimeEntries(
 	companion object {
 		private val _app = App()
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val filePath: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
-		val fileName: String = "timecard_${LocalDate.now()}.json"
+		val FILEPATH: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
+		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
-		@JvmStatic fun loadFromFile(path: Path = Paths.get(filePath, fileName)): TimeEntries {
+		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): TimeEntries {
 			val file = File(path.toString())
 			if (file.exists()) {
 				val data = file.readText()
@@ -37,7 +37,7 @@ class TimeEntries(
 		}
 	}
 
-	fun saveToFile(path: Path = Paths.get(filePath, fileName)) {
+	fun saveToFile(path: Path = Paths.get(FILEPATH, FILENAME)) {
 		val data: String = Json.encodeToString(this)
 		Files.createDirectories(path.parent)
 		val file = File(path.toString())
@@ -46,7 +46,7 @@ class TimeEntries(
 	}
 
 	fun deleteFile() {
-		val file = File(Paths.get(filePath, fileName).toString())
+		val file = File(Paths.get(FILEPATH, FILENAME).toString())
 		file.delete()
 	}
 

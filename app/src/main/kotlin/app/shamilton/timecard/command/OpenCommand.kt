@@ -17,11 +17,11 @@ class OpenCommand : ICommand {
 	override fun execute() {
 		try {
 			val desktop = Desktop.getDesktop()
-			desktop.open(File(TimeEntries.filePath))
+			desktop.open(File(TimeEntries.FILEPATH))
 		} catch(e: HeadlessException){
 			// If the user doesn't have a GUI, a HeadlessException will be thrown.
 			// In this case, we can just tell the user where the files are located.
-			_t.println("Timecard files are located at ${cyan(TimeEntries.filePath)}")
+			_t.println("Timecard files are located at ${cyan(TimeEntries.FILEPATH)}")
 		}
 	}
 
