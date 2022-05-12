@@ -33,6 +33,10 @@ dependencies {
 	// https://github.com/Kotlin/kotlinx.serialization/
 	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
+	// Kaml - YAML Support for kotlinx.serialization
+	// https://github.com/charleskorn/kaml
+	implementation("com.charleskorn.kaml:kaml:0.43.0")
+
 	// AppDirs
 	// https://mvnrepository.com/artifact/net.harawata/appdirs
 	implementation("net.harawata:appdirs:1.2.1")
