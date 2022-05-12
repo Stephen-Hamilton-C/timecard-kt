@@ -3,22 +3,16 @@ package app.shamilton.timecard.core.serializer
 import kotlinx.serialization.KSerializer
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
+import kotlinx.serialization.descriptors.PrimitiveKind
+import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
 import java.time.LocalTime
 
-@Serializable
-@SerialName("LocalTime")
-private class LocalTimeSurrogate(val hour: Int, val minute: Int) {
-	init {
-		require(hour in 0..23 && minute in 0..59)
-	}
-}
-
 object LocalTimeSerializer : KSerializer<LocalTime> {
 
-	override val descriptor: SerialDescriptor = LocalTimeSurrogate.serializer().descriptor
+	override val descriptor: SerialDescriptor = PrimitiveSerialDescriptor("LocalTime", PrimitiveKind.STRING)
 
 	override fun serialize(encoder: Encoder, value: LocalTime) {
 		val hour: String = value.hour.toString().padStart(2, '0')
