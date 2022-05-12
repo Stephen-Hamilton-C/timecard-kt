@@ -1,7 +1,7 @@
 @file:UseSerializers(LocalTimeSerializer::class)
 package app.shamilton.timecard.core
 
-import app.shamilton.timecard.core.serializer.LocalTimeSerializer
+import app.shamilton.timecard.serializer.LocalTimeSerializer
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.UseSerializers
 import java.time.LocalTime
