@@ -1,30 +1,26 @@
 package app.shamilton.timecard.core
 
 import app.shamilton.timecard.App
-import com.squareup.moshi.Json
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
+import kotlinx.serialization.decodeFromString
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Paths
 import java.time.LocalDate
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
-import app.shamilton.timecard.core.adapter.LocalTimeAdapter
-import com.squareup.moshi.JsonAdapter
 import net.harawata.appdirs.AppDirs
 import net.harawata.appdirs.AppDirsFactory
 import java.nio.file.Files
 
+@Serializable
 class TimeEntries(
-	@Json(name="entries")
+	@SerialName("entries")
 	val m_Entries: MutableList<TimeEntry> = mutableListOf()
 ) {
 
 	companion object {
 		private val _app = App()
-		private val _moshi: Moshi = Moshi.Builder()
-			.add(LocalTimeAdapter())
-			.addLast(KotlinJsonAdapterFactory())
-			.build()
-		private val _adapter: JsonAdapter<TimeEntries> = _moshi.adapter(TimeEntries::class.java)
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
 		val filePath: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
 		val fileName: String = "timecard_${LocalDate.now()}.json"
@@ -32,7 +28,7 @@ class TimeEntries(
 		@JvmStatic fun loadFromFile(): TimeEntries {
 			val file = File(Paths.get(filePath, fileName).toString())
 			if (file.exists()) {
-				val deserializedEntries: TimeEntries? = _adapter.fromJson(file.readText())
+				val deserializedEntries: TimeEntries? = Json.decodeFromString(file.readText())
 				return deserializedEntries ?: TimeEntries()
 			}
 			return TimeEntries()
@@ -40,7 +36,7 @@ class TimeEntries(
 	}
 
 	fun saveToFile() {
-		val json: String = _adapter.toJson(this)
+		val json: String = Json.encodeToString(this)
 		Files.createDirectories(Paths.get(filePath))
 		val file = File(Paths.get(filePath, fileName).toString())
 		file.createNewFile()

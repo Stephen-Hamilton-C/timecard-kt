@@ -8,7 +8,10 @@
 
 plugins {
 	// Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-	id("org.jetbrains.kotlin.jvm") version "1.5.31"
+	id("org.jetbrains.kotlin.jvm") version "1.6.10"
+
+	// Kotlinx Serialization
+	kotlin("plugin.serialization") version "1.6.10"
 
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
@@ -26,15 +29,16 @@ dependencies {
 	// Use the Kotlin JDK 8 standard library.
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
-	// Moshi JSON
-	implementation("com.squareup.moshi:moshi:1.13.0")
-	implementation("com.squareup.moshi:moshi-kotlin:1.13.0")
+	// Kotlinx JSON
+	// https://github.com/Kotlin/kotlinx.serialization/
+	implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.3.3")
 
 	// AppDirs
 	// https://mvnrepository.com/artifact/net.harawata/appdirs
 	implementation("net.harawata:appdirs:1.2.1")
 
 	// Mordant - Colorful Terminal
+	// https://github.com/ajalt/mordant
 	implementation("com.github.ajalt.mordant:mordant:2.0.0-beta6")
 
 	// Use the Kotlin test library.
