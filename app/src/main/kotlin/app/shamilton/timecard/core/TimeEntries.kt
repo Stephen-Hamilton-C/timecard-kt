@@ -12,6 +12,7 @@ import java.time.LocalDate
 import net.harawata.appdirs.AppDirs
 import net.harawata.appdirs.AppDirsFactory
 import java.nio.file.Files
+import java.nio.file.Path
 
 @Serializable
 class TimeEntries(
@@ -25,20 +26,21 @@ class TimeEntries(
 		val filePath: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
 		val fileName: String = "timecard_${LocalDate.now()}.json"
 
-		@JvmStatic fun loadFromFile(): TimeEntries {
-			val file = File(Paths.get(filePath, fileName).toString())
+		@JvmStatic fun loadFromFile(path: Path = Paths.get(filePath, fileName)): TimeEntries {
+			val file = File(path.toString())
 			if (file.exists()) {
-				val deserializedEntries: TimeEntries? = Json.decodeFromString(file.readText())
+				val data = file.readText()
+				val deserializedEntries: TimeEntries? = Json.decodeFromString(data)
 				return deserializedEntries ?: TimeEntries()
 			}
 			return TimeEntries()
 		}
 	}
 
-	fun saveToFile() {
+	fun saveToFile(path: Path = Paths.get(filePath, fileName)) {
 		val data: String = Json.encodeToString(this)
-		Files.createDirectories(Paths.get(filePath))
-		val file = File(Paths.get(filePath, fileName).toString())
+		Files.createDirectories(path.parent)
+		val file = File(path.toString())
 		file.createNewFile()
 		file.writeText(data)
 	}
