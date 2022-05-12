@@ -36,11 +36,11 @@ class TimeEntries(
 	}
 
 	fun saveToFile() {
-		val json: String = Json.encodeToString(this)
+		val data: String = Json.encodeToString(this)
 		Files.createDirectories(Paths.get(filePath))
 		val file = File(Paths.get(filePath, fileName).toString())
 		file.createNewFile()
-		file.writeText(json)
+		file.writeText(data)
 	}
 
 	fun deleteFile() {

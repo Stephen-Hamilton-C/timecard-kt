@@ -22,7 +22,7 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
 
 	override fun serialize(encoder: Encoder, value: LocalTime) {
 		val hour: String = value.hour.toString().padStart(2, '0')
-		val minute: String = value.minute.toString().padEnd(2, '0')
+		val minute: String = value.minute.toString().padStart(2, '0')
 		encoder.encodeString("$hour:$minute")
 	}
 
