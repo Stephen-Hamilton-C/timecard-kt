@@ -2,8 +2,8 @@ package app.shamilton.timecard.command
 
 import com.github.ajalt.mordant.rendering.TextColors.*
 import com.github.ajalt.mordant.terminal.Terminal
-import app.shamilton.timecard.core.TimeEntries
-import app.shamilton.timecard.core.TimeEntry
+import app.shamilton.timecard.entry.TimeEntries
+import app.shamilton.timecard.entry.TimeEntry
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import kotlin.math.roundToInt

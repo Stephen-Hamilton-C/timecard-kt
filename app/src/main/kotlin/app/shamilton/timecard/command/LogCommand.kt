@@ -1,7 +1,7 @@
 package app.shamilton.timecard.command
 
-import app.shamilton.timecard.core.TimeEntries
-import app.shamilton.timecard.core.TimeEntry
+import app.shamilton.timecard.entry.TimeEntries
+import app.shamilton.timecard.entry.TimeEntry
 import com.github.ajalt.mordant.terminal.Terminal
 import com.github.ajalt.mordant.rendering.TextColors.*
 

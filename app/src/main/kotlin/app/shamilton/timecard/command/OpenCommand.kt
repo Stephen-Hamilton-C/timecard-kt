@@ -1,6 +1,6 @@
 package app.shamilton.timecard.command
 
-import app.shamilton.timecard.core.TimeEntries
+import app.shamilton.timecard.entry.TimeEntries
 import com.github.ajalt.mordant.rendering.TextColors.*
 import com.github.ajalt.mordant.terminal.Terminal
 import java.awt.Desktop

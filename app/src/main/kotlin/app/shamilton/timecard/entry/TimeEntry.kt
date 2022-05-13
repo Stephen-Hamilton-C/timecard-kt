@@ -1,5 +1,5 @@
 @file:UseSerializers(LocalTimeSerializer::class)
-package app.shamilton.timecard.core
+package app.shamilton.timecard.entry
 
 import app.shamilton.timecard.serializer.LocalTimeSerializer
 import kotlinx.serialization.Serializable

@@ -1,4 +1,4 @@
-package app.shamilton.timecard.core
+package app.shamilton.timecard.entry
 
 import app.shamilton.timecard.App
 import kotlinx.serialization.SerialName

@@ -1,4 +1,4 @@
-package app.shamilton.timecard.core
+package app.shamilton.timecard.entry
 
 import org.junit.Test
 import java.io.File
