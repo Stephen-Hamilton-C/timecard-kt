@@ -36,15 +36,15 @@ class TimeEntriesTest {
 		assert(entries.isNotEmpty())
 
 		val firstEntry: TimeEntry = entries.first()
-		assertEquals(firstEntry.startTime.hour, 8)
-		assertEquals(firstEntry.startTime.minute, 0)
+		assertEquals(8, firstEntry.startTime.hour)
+		assertEquals(0, firstEntry.startTime.minute)
 		assertNotNull(firstEntry.endTime)
-		assertEquals(firstEntry.endTime!!.hour, 12)
-		assertEquals(firstEntry.endTime!!.minute, 30)
+		assertEquals(12, firstEntry.endTime!!.hour)
+		assertEquals(30, firstEntry.endTime!!.minute)
 
 		val lastEntry: TimeEntry = entries.last()
-		assertEquals(lastEntry.startTime.hour, 13)
-		assertEquals(lastEntry.startTime.minute, 5)
+		assertEquals(13, lastEntry.startTime.hour)
+		assertEquals(5, lastEntry.startTime.minute)
 		assertNull(lastEntry.endTime)
 	}
 
