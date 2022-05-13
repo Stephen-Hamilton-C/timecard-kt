@@ -1,4 +1,4 @@
-package app.shamilton.timecard.core.config
+package app.shamilton.timecard.config
 
 import app.shamilton.timecard.App
 import com.charleskorn.kaml.Yaml
