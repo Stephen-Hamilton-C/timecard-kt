@@ -12,8 +12,7 @@ class HelpCommand : ICommand {
 	}
 
 	override fun execute() {
-		val app = App()
-		val specificCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == app.getArg(1) }
+		val specificCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == App.getArg(1) }
 		if(specificCommand != null){
 			// Print help for a specific command
 			printHelp(specificCommand)

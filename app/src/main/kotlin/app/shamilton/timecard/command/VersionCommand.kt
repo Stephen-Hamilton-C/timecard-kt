@@ -8,7 +8,7 @@ class VersionCommand : ICommand {
 	override val m_Help: String = "" // TODO
 
 	override fun execute() {
-		println("timecard version ${App().VERSION}")
+		println("timecard version ${App.VERSION}")
 	}
 
 }

@@ -21,9 +21,8 @@ class TimeEntries(
 ) {
 
 	companion object {
-		private val _app = App()
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserDataDir(_app.NAME, "", _app.AUTHOR)
+		val FILEPATH: String = _appDirs.getUserDataDir(App.NAME, "", App.AUTHOR)
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): TimeEntries {

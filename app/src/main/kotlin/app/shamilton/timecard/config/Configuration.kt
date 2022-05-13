@@ -21,9 +21,8 @@ class Configuration (
 	var typicalBreakHours: Double = 1.0
 ) {
 	companion object {
-		private val _app = App()
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserConfigDir(_app.NAME, "", _app.AUTHOR)
+		val FILEPATH: String = _appDirs.getUserConfigDir(App.NAME, "", App.AUTHOR)
 		const val FILENAME: String = "config.yml"
 
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): Configuration {

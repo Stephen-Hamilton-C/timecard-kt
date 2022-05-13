@@ -6,16 +6,14 @@ package app.shamilton.timecard
 import app.shamilton.timecard.command.CommandList
 import app.shamilton.timecard.command.ICommand
 
-class App() {
+object App {
 
-	val NAME = "timecard"
-	val VERSION = "0.0.1-DEV"
-	val AUTHOR = "stephen-hamilton-c"
+	const val NAME = "timecard"
+	const val VERSION = "0.0.1-DEV"
+	const val AUTHOR = "stephen-hamilton-c"
 
-	companion object {
-		private var _args: List<String> = listOf()
-		private var _argsInitialized: Boolean = false
-	}
+	private var _argsInitialized: Boolean = false
+	private var _args: List<String> = listOf()
 
 	/**
 	 * Retrieves an argument as all uppercase or null if not present.
@@ -25,12 +23,8 @@ class App() {
 		return if(_args.size > index) _args[index].uppercase() else null
 	}
 
-	/**
-	 * Initializes the argument list.
-	 * This will throw an IllegalCallerException if not called in main.
-	 */
-	constructor(args: Array<String>): this() {
-		if(_argsInitialized) throw IllegalCallerException("App(args) constructor can only be called by main!")
+	fun setArgs(args: Array<String>) {
+		if(_argsInitialized) throw IllegalCallerException("App.setArgs(args) can only be called by main!")
 		_args = args.asList()
 		_argsInitialized = true
 	}
@@ -38,8 +32,8 @@ class App() {
 }
 
 fun main(args: Array<String>) {
-	val app = App(args)
-	val commandName: String = app.getArg(0) ?: "STATUS"
+	App.setArgs(args)
+	val commandName: String = App.getArg(0) ?: "STATUS"
 	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
 	foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.")
 }
