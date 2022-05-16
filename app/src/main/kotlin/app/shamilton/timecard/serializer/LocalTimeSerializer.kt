@@ -20,6 +20,10 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
 
 	override fun deserialize(decoder: Decoder): LocalTime {
 		val localTimeData = decoder.decodeString()
+		return decodeData(localTimeData)
+	}
+
+	fun decodeData(localTimeData: String): LocalTime {
 		val splitData: List<String> = localTimeData.split(':')
 		if(splitData.size != 2) throw IllegalStateException("Invalid LocalTime data: $localTimeData")
 
