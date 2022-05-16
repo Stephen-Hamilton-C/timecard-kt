@@ -1,9 +1,9 @@
 package app.shamilton.timecard.entry
 
+import app.shamilton.timecard.TestUtils
 import org.junit.Test
 import java.io.File
 import java.nio.file.Path
-import java.nio.file.Paths
 import java.time.LocalTime
 import kotlin.test.assertEquals
 import kotlin.test.assertFails
@@ -14,23 +14,8 @@ import kotlin.test.assertTrue
 
 class TimeEntriesTest {
 
-	private val _testData = "{\"entries\":[{\"startTime\":\"08:00\",\"endTime\":\"12:30\"},{\"startTime\":\"13:05\"}]}"
-
-	private fun getPath(fileName: String): Path {
-		return Paths.get("src", "test", "data", fileName)
-	}
-
-	private fun createFile(fileName: String, fileContents: String): Path {
-		val path = getPath(fileName)
-		val file = File(path.toString())
-		file.createNewFile()
-		file.writeText(fileContents)
-
-		return path
-	}
-
 	@Test fun canLoadFromJson() {
-		val testDataPath: Path = createFile("timecard_can-load-from-json.json", _testData)
+		val testDataPath: Path = TestUtils.createFile("timecard_can-load-from-json.json", TestUtils.DATA_2ENTRY_NOEND)
 		val timeEntries = TimeEntries.loadFromFile(testDataPath)
 		val entries: List<TimeEntry> = timeEntries.m_Entries
 		assert(entries.isNotEmpty())
@@ -53,7 +38,7 @@ class TimeEntriesTest {
 			TimeEntry(LocalTime.of(8, 0), LocalTime.of(12, 30)),
 			TimeEntry(LocalTime.of(13, 5))
 		))
-		val path = getPath("timecard_can-save-to-json.json")
+		val path = TestUtils.getPath("timecard_can-save-to-json.json")
 		timeEntries.saveToFile(path)
 		val file = File(path.toString())
 		assertTrue { file.exists() }
@@ -79,8 +64,8 @@ class TimeEntriesTest {
 	}
 
 	@Test fun failsOnInvalidJson() {
-		val badData = _testData.substring(0.._testData.length - 10)
-		val badDataPath: Path = createFile("timecard_fails-on-invalid-json.json", badData)
+		val badData = TestUtils.DATA_2ENTRY_NOEND.substring(0..TestUtils.DATA_2ENTRY_NOEND.length - 10)
+		val badDataPath: Path = TestUtils.createFile("timecard_fails-on-invalid-json.json", badData)
 		assertFails {
 			TimeEntries.loadFromFile(badDataPath)
 		}
@@ -88,7 +73,7 @@ class TimeEntriesTest {
 
 	@Test fun failsOnInvalidTimeData() {
 		val badData = "{\"entries\":[{\"startTime\":\"08:00\",\"endTime\":\"12:30\"},{\"startTime\":\"1305\"}]}"
-		val badDataPath: Path = createFile("timecard_fails-on-invalid-time-data.json", badData)
+		val badDataPath: Path = TestUtils.createFile("timecard_fails-on-invalid-time-data.json", badData)
 		assertFailsWith<IllegalStateException> {
 			TimeEntries.loadFromFile(badDataPath)
 		}
