@@ -8,7 +8,7 @@ import java.time.LocalTime
 class ClockInCommand : ClockCommand() {
 	
 	override val m_Name: String = "IN"
-	override val m_Help: String = "" // TODO
+	override val m_Help: String = "Clocks you in. If an offset is supplied, it will clock you in OFFSET minutes ago or at OFFSET time. Time must be in 24-hour time (e.g. 17:31)"
 
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()
