@@ -8,9 +8,7 @@ import app.shamilton.timecard.command.ICommand
 
 object App {
 
-	const val NAME = "timecard"
 	const val VERSION = "0.0.1-DEV"
-	const val AUTHOR = "stephen-hamilton-c"
 
 	private var _argsInitialized: Boolean = false
 	private var _args: List<String> = listOf()

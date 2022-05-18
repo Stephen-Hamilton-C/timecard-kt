@@ -1,6 +1,5 @@
 package app.shamilton.timecard.entry
 
-import app.shamilton.timecard.App
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -22,7 +21,7 @@ class TimeEntries(
 
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserDataDir(App.NAME, "", App.AUTHOR)
+		val FILEPATH: String = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c")
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): TimeEntries {

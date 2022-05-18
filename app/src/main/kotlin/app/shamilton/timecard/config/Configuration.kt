@@ -1,6 +1,5 @@
 package app.shamilton.timecard.config
 
-import app.shamilton.timecard.App
 import com.charleskorn.kaml.Yaml
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
@@ -22,7 +21,7 @@ class Configuration (
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserConfigDir(App.NAME, "", App.AUTHOR)
+		val FILEPATH: String = _appDirs.getUserConfigDir("timecard", "", "stephen-hamilton-c")
 		const val FILENAME: String = "config.yml"
 
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): Configuration {
