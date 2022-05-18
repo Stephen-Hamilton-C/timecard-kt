@@ -1,53 +1,14 @@
 package app.shamilton.timecard.command
 
-import app.shamilton.timecard.App
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
-import app.shamilton.timecard.serializer.LocalTimeSerializer
 import com.github.ajalt.mordant.rendering.TextColors.*
-import com.github.ajalt.mordant.terminal.Terminal
 import java.time.LocalTime
-import java.time.temporal.ChronoUnit
-import kotlin.math.absoluteValue
 
-class ClockInCommand : ICommand {
+class ClockInCommand : ClockCommand() {
 	
 	override val m_Name: String = "IN"
 	override val m_Help: String = "" // TODO
-
-	private val _t = Terminal()
-
-	private fun now(): LocalTime {
-		return LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
-	}
-
-	private fun getTimeFromOffset(timeEntries: TimeEntries, offset: String): LocalTime? {
-		// Assume minutes offset
-		try {
-			val offsetMinutes: Long = offset.toLong().absoluteValue
-
-			// Cannot clock in yesterday
-			if (now().toSecondOfDay() - offsetMinutes * 60 < 0){
-				_t.println(yellow("You cannot clock in before midnight! Did you forget a colon?"))
-				return null
-			}
-
-			return now().minusMinutes(offsetMinutes)
-		} catch(e: NumberFormatException) {
-			_t.println(yellow("Unknown arguments. Use 'timecard help in' for usage."))
-			return null
-		}
-	}
-
-	private fun getTime(offset: String): LocalTime? {
-		try {
-			return LocalTimeSerializer.decodeData(offset)
-		} catch (e: IllegalStateException) {
-			// User input error
-			_t.println(yellow("Unknown arguments. Use 'timecard help in' for usage."))
-			return null;
-		}
-	}
 
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()
@@ -57,14 +18,7 @@ class ClockInCommand : ICommand {
 			return
 		}
 
-		val arg: String? = App.getArg(1)
-		val startTime: LocalTime = if(arg == null) {
-			now()
-		} else if(arg.contains(":")) {
-			getTime(arg) ?: return
-		} else {
-			getTimeFromOffset(timeEntries, arg) ?: return
-		}
+		val startTime: LocalTime = getTime() ?: return
 
 		// Cannot clock in to the future
 		if (startTime.isAfter(now())) {

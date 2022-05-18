@@ -3,16 +3,12 @@ package app.shamilton.timecard.command
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
 import com.github.ajalt.mordant.rendering.TextColors.*
-import com.github.ajalt.mordant.terminal.Terminal
 import java.time.LocalTime
-import java.time.temporal.ChronoUnit
 
-class ClockOutCommand : ICommand {
+class ClockOutCommand : ClockCommand() {
 	
 	override val m_Name: String = "OUT"
 	override val m_Help: String = "" // TODO
-
-	private val _t = Terminal()
 
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()
@@ -22,11 +18,23 @@ class ClockOutCommand : ICommand {
 			return
 		}
 
-		// TODO: Use App.args[1] to determine offset
+		val endTime: LocalTime = getTime() ?: return
 
-		val now = LocalTime.now()
+		// Cannot clock out in to the future
+		if (endTime.isAfter(now())) {
+			_t.println(yellow("Cannot clock out into the future!"))
+			return
+		}
+
+		val lastClockIn: LocalTime = timeEntries.m_Entries.last().startTime
+		if (endTime.isBefore(lastClockIn)) {
+			_t.println(yellow("Clock out time cannot be before last clock in time!"))
+			println("Use 'timecard undo' to undo last clock in.")
+			return
+		}
+
 		val lastEntry: TimeEntry = timeEntries.m_Entries.last()
-		lastEntry.endTime = now.truncatedTo(ChronoUnit.MINUTES)
+		lastEntry.endTime = endTime
 
 		_t.println("Clocked ${red("out")} at ${red(lastEntry.endTime.toString())}")
 
