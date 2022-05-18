@@ -1,3 +1,10 @@
+- [ ] Cleanup command
+- [ ] Cleanup interval config
+  - daily
+  - weekly **[Default]**
+  - monthly
+  - manually
+
 # Packaging
 In order of importance
 - [ ] Package for Debian
