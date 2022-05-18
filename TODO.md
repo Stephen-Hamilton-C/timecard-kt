@@ -4,6 +4,10 @@
   - weekly **[Default]**
   - monthly
   - manually
+- [ ] Time display config
+  - Nearest quarter hour **[Default]**
+  - HH hours MM minutes (or MM minutes if minutes < 60)
+  - HH:MM
 
 # Packaging
 In order of importance
