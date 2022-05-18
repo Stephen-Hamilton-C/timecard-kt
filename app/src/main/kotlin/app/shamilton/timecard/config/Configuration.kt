@@ -1,7 +1,6 @@
 package app.shamilton.timecard.config
 
 import com.charleskorn.kaml.Yaml
-import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
@@ -14,10 +13,7 @@ import java.nio.file.Paths
 
 @Serializable
 class Configuration (
-	@SerialName("target_working_hours")
-	var targetWorkingHours: Double = 8.0,
-	@SerialName("typical_break_hours")
-	var typicalBreakHours: Double = 1.0
+
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
