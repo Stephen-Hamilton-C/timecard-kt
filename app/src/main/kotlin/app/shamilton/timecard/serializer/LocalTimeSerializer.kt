@@ -6,6 +6,7 @@ import kotlinx.serialization.descriptors.PrimitiveSerialDescriptor
 import kotlinx.serialization.descriptors.SerialDescriptor
 import kotlinx.serialization.encoding.Decoder
 import kotlinx.serialization.encoding.Encoder
+import java.time.DateTimeException
 import java.time.LocalTime
 
 object LocalTimeSerializer : KSerializer<LocalTime> {
@@ -23,13 +24,24 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
 		return decodeData(localTimeData)
 	}
 
+	private fun invalidData(data: String): Nothing = throw IllegalStateException("Invalid LocalTime data: $data")
+
 	fun decodeData(localTimeData: String): LocalTime {
 		val splitData: List<String> = localTimeData.split(':')
-		if(splitData.size != 2) throw IllegalStateException("Invalid LocalTime data: $localTimeData")
+		if(splitData.size != 2) invalidData(localTimeData)
 
-		val hour: Int = splitData[0].toInt()
-		val minute: Int = splitData[1].toInt()
-		return LocalTime.of(hour, minute)
+		try {
+			val hour: Int = splitData[0].toInt()
+			val minute: Int = splitData[1].toInt()
+
+			try {
+				return LocalTime.of(hour, minute)
+			} catch(e: DateTimeException){
+				invalidData(localTimeData)
+			}
+		} catch(e: NumberFormatException){
+			invalidData(localTimeData)
+		}
 	}
 
 }
