@@ -11,5 +11,6 @@ object CommandList {
 		LogCommand(),
 		OpenCommand(),
 		ConfigCommand(),
+		CleanCommand(),
 	)
 }

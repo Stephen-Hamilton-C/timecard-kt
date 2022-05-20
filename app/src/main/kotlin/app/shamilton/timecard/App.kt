@@ -4,6 +4,7 @@
 package app.shamilton.timecard
 
 import app.shamilton.timecard.command.CommandList
+import app.shamilton.timecard.command.IAutoCommand
 import app.shamilton.timecard.command.ICommand
 
 object App {
@@ -34,4 +35,11 @@ fun main(args: Array<String>) {
 	val commandName: String = App.getArg(0) ?: "STATUS"
 	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
 	foundCommand?.execute() ?: println("Unknown command. Use 'timecard help' for a list of commands.")
+
+	// Run AutoCommands
+	for (command: ICommand in CommandList.COMMANDS) {
+		if (command is IAutoCommand) {
+			command.autoRun()
+		}
+	}
 }
