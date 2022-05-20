@@ -1,5 +1,5 @@
-- [ ] Cleanup command
-- [ ] Cleanup interval config
+- [x] Cleanup command
+- [x] Cleanup interval config
   - daily
   - weekly **[Default]**
   - monthly
@@ -8,6 +8,7 @@
   - Nearest quarter hour **[Default]**
   - HH hours MM minutes (or MM minutes if minutes < 60)
   - HH:MM
+- [ ] Config setting
 
 # Packaging
 In order of importance
