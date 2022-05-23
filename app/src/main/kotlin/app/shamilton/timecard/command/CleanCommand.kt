@@ -21,7 +21,6 @@ class CleanCommand : IAutoCommand {
 	override fun autoRun() {
 		if (_executed) return
 
-		println("Autorun")
 		val config = Configuration.loadFromFile()
 		if (config.clean_interval != CleanInterval.MANUALLY) {
 			cleanUp(true, config)
