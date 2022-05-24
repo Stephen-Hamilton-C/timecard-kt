@@ -13,6 +13,7 @@ class CleanCommand : IAutoCommand {
 
 	override val m_Name: String = "CLEAN"
 	override val m_Help: String = "" // TODO
+	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 
 	private val _t = Terminal()
@@ -31,7 +32,7 @@ class CleanCommand : IAutoCommand {
 		cleanUp(false, Configuration.loadFromFile())
 	}
 
-	fun cleanUp(autorun: Boolean, config: Configuration) {
+	private fun cleanUp(autorun: Boolean, config: Configuration) {
 		val today = LocalDate.now()
 		val dataDir = File(TimeEntries.FILEPATH)
 		val timecardFiles: Array<File> = dataDir.listFiles { file ->

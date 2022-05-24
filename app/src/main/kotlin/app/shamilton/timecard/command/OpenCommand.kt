@@ -14,6 +14,7 @@ class OpenCommand : ICommand {
 
 	override val m_Name: String = "OPEN"
 	override val m_Help: String = "Opens the directory where timecard config or data files are stored, depending on the argument supplied."
+	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf("<config/data>")
 
 	private val _t = Terminal()

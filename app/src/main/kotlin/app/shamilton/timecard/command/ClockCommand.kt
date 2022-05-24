@@ -11,6 +11,7 @@ import kotlin.math.absoluteValue
 abstract class ClockCommand : ICommand {
 
 	override val m_HelpArgs: List<String> = listOf("[offset/time]")
+	override val m_DetailedHelp: String? = null
 
 	protected val _t = Terminal()
 

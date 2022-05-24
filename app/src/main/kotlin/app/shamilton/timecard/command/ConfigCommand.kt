@@ -4,6 +4,7 @@ class ConfigCommand : ICommand {
 
 	override val m_Name: String = "CONFIG"
 	override val m_Help: String = "" // TODO
+	override val m_DetailedHelp: String? = null //TODO: List configurations
 	override val m_HelpArgs: List<String> = listOf() // TODO
 
 	override fun execute() {
