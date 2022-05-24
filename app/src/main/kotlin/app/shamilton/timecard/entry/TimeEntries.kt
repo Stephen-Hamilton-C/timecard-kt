@@ -24,14 +24,22 @@ class TimeEntries(
 		val FILEPATH: String = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c")
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
+		private var _cached: TimeEntries? = null
+
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): TimeEntries {
+			if(_cached != null && path.toString() == Paths.get(FILEPATH, FILENAME).toString()) return _cached as TimeEntries
+
+			var timeEntries = TimeEntries()
 			val file = File(path.toString())
 			if (file.exists()) {
 				val data = file.readText()
 				val deserializedEntries: TimeEntries? = Json.decodeFromString(data)
-				return deserializedEntries ?: TimeEntries()
+				timeEntries = deserializedEntries ?: timeEntries
 			}
-			return TimeEntries()
+			if(path.toString() == Paths.get(FILEPATH, FILENAME).toString()) {
+				_cached = timeEntries
+			}
+			return timeEntries
 		}
 	}
 

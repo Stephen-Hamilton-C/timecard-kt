@@ -13,21 +13,29 @@ import java.nio.file.Paths
 
 @Serializable
 class Configuration (
-	val clean_interval: CleanInterval = CleanInterval.WEEKLY
+	var clean_interval: CleanInterval = CleanInterval.WEEKLY
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
 		val FILEPATH: String = _appDirs.getUserConfigDir("timecard", "", "stephen-hamilton-c")
 		const val FILENAME: String = "config.yml"
 
+		private var _cached: Configuration? = null
+
 		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): Configuration {
+			if(_cached != null && path.toString() == Paths.get(FILEPATH, FILENAME).toString()) return _cached as Configuration
+
+			var configuration = Configuration()
 			val file = File(path.toString())
 			if (file.exists()) {
 				val data = file.readText()
 				val deserializedConfig: Configuration? = Yaml.default.decodeFromString(data)
-				return deserializedConfig ?: Configuration()
+				configuration = deserializedConfig ?: configuration
 			}
-			return Configuration()
+			if (path.toString() == Paths.get(FILEPATH, FILENAME).toString()) {
+				_cached = configuration
+			}
+			return configuration
 		}
 	}
 
