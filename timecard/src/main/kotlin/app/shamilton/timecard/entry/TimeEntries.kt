@@ -8,7 +8,6 @@ import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.io.File
-import java.nio.file.Paths
 import java.time.LocalDate
 import java.nio.file.Files
 import java.nio.file.Path
@@ -21,38 +20,38 @@ class TimeEntries(
 
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c").toString()
+		val FILEPATH: Path = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c")
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		private var _cached: TimeEntries? = null
 
-		@JvmStatic fun loadFromFile(path: Path = Paths.get(FILEPATH, FILENAME)): TimeEntries {
-			if(_cached != null && path.toString() == Paths.get(FILEPATH, FILENAME).toString()) return _cached as TimeEntries
+		@JvmStatic fun loadFromFile(path: Path = FILEPATH.resolve(FILENAME)): TimeEntries {
+			if(_cached != null && path == FILEPATH.resolve(FILENAME)) return _cached as TimeEntries
 
 			var timeEntries = TimeEntries()
-			val file = File(path.toString())
+			val file: File = path.toFile()
 			if (file.exists()) {
 				val data = file.readText()
 				val deserializedEntries: TimeEntries? = Json.decodeFromString(data)
 				timeEntries = deserializedEntries ?: timeEntries
 			}
-			if(path.toString() == Paths.get(FILEPATH, FILENAME).toString()) {
+			if(path == FILEPATH.resolve(FILENAME)) {
 				_cached = timeEntries
 			}
 			return timeEntries
 		}
 	}
 
-	fun saveToFile(path: Path = Paths.get(FILEPATH, FILENAME)) {
+	fun saveToFile(path: Path = FILEPATH.resolve(FILENAME)) {
 		val data: String = Json.encodeToString(this)
 		Files.createDirectories(path.parent)
-		val file = File(path.toString())
+		val file: File = path.toFile()
 		file.createNewFile()
 		file.writeText(data)
 	}
 
 	fun deleteFile() {
-		val file = File(Paths.get(FILEPATH, FILENAME).toString())
+		val file: File = FILEPATH.resolve(FILENAME).toFile()
 		file.delete()
 	}
 

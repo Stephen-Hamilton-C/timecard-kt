@@ -32,7 +32,7 @@ class CleanCommand : IAutoCommand {
 
 	private fun cleanUp(autorun: Boolean, config: Configuration) {
 		val today = LocalDate.now()
-		val dataDir = File(TimeEntries.FILEPATH)
+		val dataDir: File = TimeEntries.FILEPATH.toFile()
 		val timecardFiles: Array<File> = dataDir.listFiles { file ->
 			file.name.startsWith("timecard_") && file.name.endsWith(".json")
 		} ?: arrayOf()

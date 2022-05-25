@@ -19,9 +19,9 @@ class OpenCommand : ICommand {
 
 	override fun execute() {
 		val arg: String? = App.getArg(1)
-		val directory = when(arg) {
-			"CONFIG" -> File(Configuration.FILEPATH)
-			"DATA" -> File(TimeEntries.FILEPATH)
+		val directory: File = when(arg) {
+			"CONFIG" -> Configuration.FILEPATH.toFile()
+			"DATA" -> TimeEntries.FILEPATH.toFile()
 			null -> {
 				println(yellow("Must specify which directory! 'config' or 'data'?"))
 				return
