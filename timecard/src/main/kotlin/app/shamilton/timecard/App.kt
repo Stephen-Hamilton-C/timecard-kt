@@ -23,7 +23,7 @@ object App {
 	}
 
 	fun setArgs(args: Array<String>) {
-		if(_argsInitialized) throw IllegalCallerException("App.setArgs(args) can only be called by main!")
+		if(_argsInitialized) throw IllegalStateException("App._args has already been initialized! App.setArgs(args) should only be called by main.")
 		_args = args.asList()
 		_argsInitialized = true
 	}

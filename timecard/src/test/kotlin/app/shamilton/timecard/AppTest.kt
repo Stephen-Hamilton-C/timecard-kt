@@ -24,7 +24,7 @@ class AppTest {
 	}
 
 	@Test fun cannotReinitArgs() {
-		assertFailsWith<IllegalCallerException> { App.setArgs(arrayOf()) }
+		assertFailsWith<IllegalStateException> { App.setArgs(arrayOf()) }
 	}
 
 	@Test fun capitalizesArgs() {
