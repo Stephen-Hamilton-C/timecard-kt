@@ -9,7 +9,7 @@ import app.shamilton.timecard.command.ICommand
 
 object App {
 
-	const val VERSION = "0.0.2-DEV"
+	const val VERSION = "0.0.3-DEV"
 
 	private var _argsInitialized: Boolean = false
 	private var _args: List<String> = listOf()
