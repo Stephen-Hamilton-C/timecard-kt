@@ -41,10 +41,6 @@ dependencies {
 	// https://mvnrepository.com/artifact/net.harawata/appdirs
 	implementation("net.harawata:appdirs:1.2.1")
 
-	// Mordant - Colorful Terminal
-	// https://github.com/ajalt/mordant
-	implementation("com.github.ajalt.mordant:mordant:2.0.0-beta6")
-
 	// Use the Kotlin test library.
 	testImplementation("org.jetbrains.kotlin:kotlin-test")
 

@@ -1,8 +1,9 @@
 package app.shamilton.timecard.command
 
+import app.shamilton.timecard.Color.yellow
+import app.shamilton.timecard.Color.green
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
-import com.github.ajalt.mordant.rendering.TextColors.*
 import java.time.LocalTime
 
 class ClockInCommand : ClockCommand() {
@@ -13,7 +14,7 @@ class ClockInCommand : ClockCommand() {
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()
 		if (timeEntries.isClockedIn()) {
-			_t.println(yellow("Already clocked in!"))
+			println(yellow("Already clocked in!"))
 			println("Use 'timecard out' to clock out.")
 			return
 		}
@@ -22,7 +23,7 @@ class ClockInCommand : ClockCommand() {
 
 		// Cannot clock in to the future
 		if (startTime.isAfter(now())) {
-			_t.println(yellow("Cannot clock in into the future!"))
+			println(yellow("Cannot clock in into the future!"))
 			return
 		}
 
@@ -33,7 +34,7 @@ class ClockInCommand : ClockCommand() {
 
 			// Cannot clock in before last clock out
 			if (startTime.isBefore(lastClockOut)) {
-				_t.println(yellow("Clock in time cannot be before last clock out time!"))
+				println(yellow("Clock in time cannot be before last clock out time!"))
 				println("Use 'timecard undo' to undo last clock out.")
 				return
 			}
@@ -42,7 +43,7 @@ class ClockInCommand : ClockCommand() {
 		val newEntry = TimeEntry(startTime)
 		timeEntries.m_Entries.add(newEntry)
 
-		_t.println("Clocked ${green("in")} at ${green(newEntry.startTime.toString())}")
+		println("Clocked ${green("in")} at ${green(newEntry.startTime.toString())}")
 
 		timeEntries.saveToFile()
 	}

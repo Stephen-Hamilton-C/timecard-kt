@@ -1,10 +1,9 @@
 package app.shamilton.timecard.command
 
+import app.shamilton.timecard.Color.cyan
 import app.shamilton.timecard.config.CleanInterval
 import app.shamilton.timecard.config.Configuration
 import app.shamilton.timecard.entry.TimeEntries
-import com.github.ajalt.mordant.rendering.TextColors.cyan
-import com.github.ajalt.mordant.terminal.Terminal
 import java.io.File
 import java.time.LocalDate
 import java.time.Period
@@ -16,7 +15,6 @@ class CleanCommand : IAutoCommand {
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 
-	private val _t = Terminal()
 	private var _executed: Boolean = false
 
 	override fun autoRun() {
@@ -44,7 +42,7 @@ class CleanCommand : IAutoCommand {
 			val timecardDate = LocalDate.parse(timecardDateString)
 			val difference = Period.between(timecardDate, today)
 			if (difference.days >= config.clean_interval.days) {
-				_t.println(cyan("Removed old timecard for $timecardDateString"))
+				println(cyan("Removed old timecard for $timecardDateString"))
 				timecardFile.delete()
 			}
 		}

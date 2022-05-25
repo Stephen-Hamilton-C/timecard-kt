@@ -1,9 +1,8 @@
 package app.shamilton.timecard.command
 
 import app.shamilton.timecard.App
+import app.shamilton.timecard.Color.yellow
 import app.shamilton.timecard.serializer.LocalTimeSerializer
-import com.github.ajalt.mordant.rendering.TextColors.yellow
-import com.github.ajalt.mordant.terminal.Terminal
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
 import kotlin.math.absoluteValue
@@ -12,8 +11,6 @@ abstract class ClockCommand : ICommand {
 
 	override val m_HelpArgs: List<String> = listOf("[offset/time]")
 	override val m_DetailedHelp: String? = null
-
-	protected val _t = Terminal()
 
 	protected fun now(): LocalTime = LocalTime.now().truncatedTo(ChronoUnit.MINUTES)
 
@@ -35,13 +32,13 @@ abstract class ClockCommand : ICommand {
 
 			// Cannot clock out yesterday
 			if (now().toSecondOfDay() - offsetMinutes * 60 < 0){
-				_t.println(yellow("You cannot clock ${m_Name.lowercase()} before midnight! Did you forget a colon?"))
+				println(yellow("You cannot clock ${m_Name.lowercase()} before midnight! Did you forget a colon?"))
 				return null
 			}
 
 			return now().minusMinutes(offsetMinutes)
 		} catch(e: NumberFormatException) {
-			_t.println(yellow("Unknown arguments. Use 'timecard help ${m_Name.lowercase()}' for usage."))
+			println(yellow("Unknown arguments. Use 'timecard help ${m_Name.lowercase()}' for usage."))
 			return null
 		}
 	}
@@ -51,7 +48,7 @@ abstract class ClockCommand : ICommand {
 			return LocalTimeSerializer.decodeData(input)
 		} catch (e: IllegalStateException) {
 			// User input error
-			_t.println(yellow("Unknown arguments. Use 'timecard help ${m_Name.lowercase()}' for usage."))
+			println(yellow("Unknown arguments. Use 'timecard help ${m_Name.lowercase()}' for usage."))
 			return null
 		}
 	}

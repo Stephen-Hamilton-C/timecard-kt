@@ -1,7 +1,9 @@
 package app.shamilton.timecard.command
 
-import com.github.ajalt.mordant.rendering.TextColors.*
-import com.github.ajalt.mordant.terminal.Terminal
+import app.shamilton.timecard.Color.GREEN
+import app.shamilton.timecard.Color.RED
+import app.shamilton.timecard.Color.colorize
+import app.shamilton.timecard.Color.yellow
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
 import java.time.LocalTime
@@ -14,8 +16,6 @@ class StatusCommand : ICommand {
 	override val m_Help: String = "Displays whether you're currently clocked in or not and how long you've been working today"
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
-
-	private val _t = Terminal()
 
 	private fun calculateDifference(startTime: LocalTime, endTime: LocalTime): Long {
 		val startTimeMinutes: Int = startTime.hour * 60 + startTime.minute
@@ -76,8 +76,8 @@ class StatusCommand : ICommand {
 		val lastTime: LocalTime = lastEntry.endTime ?: lastEntry.startTime
 
 		val clockState = if(timeEntries.isClockedIn()) "in" else "out"
-		val color = if(timeEntries.isClockedIn()) green else red
-		_t.println(color("Currently clocked $clockState since $lastTime"))
+		val color = if(timeEntries.isClockedIn()) GREEN else RED
+		println(colorize(color, "Currently clocked $clockState since $lastTime"))
 	}
 
 	private fun printTimeWorked(timeEntries: TimeEntries) {
@@ -99,7 +99,7 @@ class StatusCommand : ICommand {
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()
 		if(timeEntries.m_Entries.isEmpty()) {
-			_t.println(yellow("You haven't clocked in yet today! Use 'timecard in' to clock in."))
+			println(yellow("You haven't clocked in yet today! Use 'timecard in' to clock in."))
 			return
 		}
 

@@ -1,10 +1,10 @@
 package app.shamilton.timecard.command
 
 import app.shamilton.timecard.App
+import app.shamilton.timecard.Color.yellow
+import app.shamilton.timecard.Color.cyan
 import app.shamilton.timecard.config.Configuration
 import app.shamilton.timecard.entry.TimeEntries
-import com.github.ajalt.mordant.rendering.TextColors.*
-import com.github.ajalt.mordant.terminal.Terminal
 import java.awt.Desktop
 import java.awt.HeadlessException
 import java.io.File
@@ -17,19 +17,17 @@ class OpenCommand : ICommand {
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf("<config/data>")
 
-	private val _t = Terminal()
-
 	override fun execute() {
 		val arg: String? = App.getArg(1)
 		val directory = when(arg) {
 			"CONFIG" -> File(Configuration.FILEPATH)
 			"DATA" -> File(TimeEntries.FILEPATH)
 			null -> {
-				_t.println(yellow("Must specify which directory! 'config' or 'data'?"))
+				println(yellow("Must specify which directory! 'config' or 'data'?"))
 				return
 			}
 			else -> {
-				_t.println(yellow("Unknown argument. See 'timecard help open' for usage"))
+				println(yellow("Unknown argument. See 'timecard help open' for usage"))
 				return
 			}
 		}
@@ -44,7 +42,7 @@ class OpenCommand : ICommand {
 		} catch(e: HeadlessException){
 			// If the user doesn't have a GUI, a HeadlessException will be thrown.
 			// In this case, we can just tell the user where the files are located.
-			_t.println("timecard ${arg.lowercase()} files are located at ${cyan(directory.path)}")
+			println("timecard ${arg.lowercase()} files are located at ${cyan(directory.path)}")
 		}
 	}
 
