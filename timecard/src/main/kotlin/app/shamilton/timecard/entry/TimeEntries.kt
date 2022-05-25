@@ -1,5 +1,7 @@
 package app.shamilton.timecard.entry
 
+import io.github.erayerdin.kappdirs.AppDirsFactory
+import io.github.erayerdin.kappdirs.appdirs.AppDirs
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
@@ -8,8 +10,6 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.nio.file.Paths
 import java.time.LocalDate
-import net.harawata.appdirs.AppDirs
-import net.harawata.appdirs.AppDirsFactory
 import java.nio.file.Files
 import java.nio.file.Path
 
@@ -21,7 +21,7 @@ class TimeEntries(
 
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c")
+		val FILEPATH: String = _appDirs.getUserDataDir("timecard", "", "stephen-hamilton-c").toString()
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		private var _cached: TimeEntries? = null

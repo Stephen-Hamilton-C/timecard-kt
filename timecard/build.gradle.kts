@@ -20,6 +20,7 @@ plugins {
 repositories {
 	// Use Maven Central for resolving dependencies.
 	mavenCentral()
+	maven("https://jitpack.io")
 }
 
 dependencies {
@@ -37,9 +38,10 @@ dependencies {
 	// https://github.com/charleskorn/kaml
 	implementation("com.charleskorn.kaml:kaml:0.43.0")
 
-	// AppDirs
-	// https://mvnrepository.com/artifact/net.harawata/appdirs
-	implementation("net.harawata:appdirs:1.2.1")
+	// KAppDirs
+	// Better than Harawata's AppDirs as KAppDirs doesn't import JNA
+	// https://github.com/erayerdin/kappdirs
+	implementation("com.github.erayerdin:kappdirs:0.3.1-alpha")
 
 	// Use the Kotlin test library.
 	testImplementation("org.jetbrains.kotlin:kotlin-test")

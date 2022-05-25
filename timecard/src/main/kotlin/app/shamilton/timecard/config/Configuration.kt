@@ -1,11 +1,11 @@
 package app.shamilton.timecard.config
 
 import com.charleskorn.kaml.Yaml
+import io.github.erayerdin.kappdirs.AppDirsFactory
+import io.github.erayerdin.kappdirs.appdirs.AppDirs
 import kotlinx.serialization.Serializable
 import kotlinx.serialization.decodeFromString
 import kotlinx.serialization.encodeToString
-import net.harawata.appdirs.AppDirs
-import net.harawata.appdirs.AppDirsFactory
 import java.io.File
 import java.nio.file.Files
 import java.nio.file.Path
@@ -17,7 +17,7 @@ class Configuration (
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: String = _appDirs.getUserConfigDir("timecard", "", "stephen-hamilton-c")
+		val FILEPATH: String = _appDirs.getUserConfigDir("timecard", "", "stephen-hamilton-c").toString()
 		const val FILENAME: String = "config.yml"
 
 		private var _cached: Configuration? = null
