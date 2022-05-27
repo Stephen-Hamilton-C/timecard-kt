@@ -2,7 +2,7 @@ package app.shamilton.timecard.command
 
 import app.shamilton.timecard.Color.cyan
 import app.shamilton.timecard.config.CleanInterval
-import app.shamilton.timecard.config.Configurations
+import app.shamilton.timecard.config.Configuration
 import app.shamilton.timecard.entry.TimeEntries
 import java.io.File
 import java.time.LocalDate
@@ -20,17 +20,17 @@ class CleanCommand : IAutoCommand {
 	override fun autoRun() {
 		if (_executed) return
 
-		val config = Configurations.loadFromFile()
+		val config = Configuration.loadFromFile()
 		if (config.clean_interval != CleanInterval.MANUALLY) {
 			cleanUp(true, config)
 		}
 	}
 
 	override fun execute() {
-		cleanUp(false, Configurations.loadFromFile())
+		cleanUp(false, Configuration.loadFromFile())
 	}
 
-	private fun cleanUp(autorun: Boolean, config: Configurations) {
+	private fun cleanUp(autorun: Boolean, config: Configuration) {
 		val today = LocalDate.now()
 		val dataDir: File = TimeEntries.FILEPATH.toFile()
 		val timecardFiles: Array<File> = dataDir.listFiles { file ->

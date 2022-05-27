@@ -6,6 +6,6 @@ abstract class Config {
 	abstract var m_Value: String
 	abstract val m_PossibleValues: List<String>
 
-	protected val _config = Configurations.loadFromFile()
+	protected val _config = Configuration.loadFromFile()
 
 }

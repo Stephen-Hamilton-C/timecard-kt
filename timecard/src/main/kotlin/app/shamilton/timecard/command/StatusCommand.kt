@@ -4,7 +4,7 @@ import app.shamilton.timecard.Color.GREEN
 import app.shamilton.timecard.Color.RED
 import app.shamilton.timecard.Color.colorize
 import app.shamilton.timecard.Color.yellow
-import app.shamilton.timecard.config.Configurations
+import app.shamilton.timecard.config.Configuration
 import app.shamilton.timecard.config.TimeFormat
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
@@ -64,7 +64,7 @@ class StatusCommand : ICommand {
 	}
 
 	private fun formatTime(time: LocalTime): String {
-		val config = Configurations.loadFromFile()
+		val config = Configuration.loadFromFile()
 		when(config.time_format) {
 			TimeFormat.ISO -> return "${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}"
 			TimeFormat.QUARTER_HOUR -> {
