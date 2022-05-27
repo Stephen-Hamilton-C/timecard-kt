@@ -4,6 +4,8 @@ import app.shamilton.timecard.Color.GREEN
 import app.shamilton.timecard.Color.RED
 import app.shamilton.timecard.Color.colorize
 import app.shamilton.timecard.Color.yellow
+import app.shamilton.timecard.config.Configurations
+import app.shamilton.timecard.config.TimeFormat
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
 import java.time.LocalTime
@@ -62,13 +64,30 @@ class StatusCommand : ICommand {
 	}
 
 	private fun formatTime(time: LocalTime): String {
-		// TODO: Make config for time formatting
-		val hours: String = if(time.hour == 1) "hour" else "hours"
-		val minutes: String = if(time.minute == 1) "minute" else "minutes"
-		return if(time.hour > 0)
-			"${time.hour} $hours and ${time.minute} $minutes"
-		else
-			"${time.minute} minutes"
+		val config = Configurations.loadFromFile()
+		when(config.time_format) {
+			TimeFormat.ISO -> return "${time.hour.toString().padStart(2, '0')}:${time.minute.toString().padStart(2, '0')}"
+			TimeFormat.QUARTER_HOUR -> {
+				val quarterHour: Double = time.hour + ((time.minute / 15.0).roundToInt() * 15.0) / 60.0
+				return "$quarterHour hours"
+			}
+			TimeFormat.WRITTEN -> {
+				val hours: String = if(time.hour == 1) "hour" else "hours"
+				val minutes: String = if(time.minute == 1) "minute" else "minutes"
+				return if(time.hour > 0)
+					"${time.hour} $hours and ${time.minute} $minutes"
+				else
+					"${time.minute} $minutes"
+			}
+			TimeFormat.WRITTEN_SHORT -> {
+				val hours: String = if(time.hour == 1) "hr" else "hrs"
+				val minutes: String = if(time.minute == 1) "min" else "mins"
+				return if(time.hour > 0)
+					"${time.hour} $hours and ${time.minute} $minutes"
+				else
+					"${time.minute} $minutes"
+			}
+		}
 	}
 
 	private fun printClockState(timeEntries: TimeEntries) {
@@ -85,12 +104,6 @@ class StatusCommand : ICommand {
 		println("Worked for ${formatTime(timeWorked)}")
 	}
 
-	private fun printNearestQuarterHour(timeEntries: TimeEntries) {
-		val timeWorked: LocalTime = getTimeWorked(timeEntries)
-		val quarterHour: Double = timeWorked.hour + ((timeWorked.minute / 15.0).roundToInt() * 15.0) / 60.0
-		println("Worked for $quarterHour hours")
-	}
-
 	private fun printBreakTime(timeEntries: TimeEntries) {
 		val timeOnBreak: LocalTime = getTimeOnBreak(timeEntries)
 		println("On break for ${formatTime(timeOnBreak)}")
@@ -103,10 +116,8 @@ class StatusCommand : ICommand {
 			return
 		}
 
-		// TODO: Make a config setting that shows different formats instead of showing them all at once
 		printClockState(timeEntries)
 		printTimeWorked(timeEntries)
-		printNearestQuarterHour(timeEntries)
 		printBreakTime(timeEntries)
 	}
 
