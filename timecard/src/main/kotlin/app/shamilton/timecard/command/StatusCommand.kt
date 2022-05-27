@@ -5,7 +5,7 @@ import app.shamilton.timecard.Color.RED
 import app.shamilton.timecard.Color.colorize
 import app.shamilton.timecard.Color.yellow
 import app.shamilton.timecard.config.Configuration
-import app.shamilton.timecard.config.TimeFormat
+import app.shamilton.timecard.config.timeformat.TimeFormat
 import app.shamilton.timecard.entry.TimeEntries
 import app.shamilton.timecard.entry.TimeEntry
 import java.time.LocalTime

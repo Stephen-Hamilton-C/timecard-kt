@@ -1,5 +1,7 @@
 package app.shamilton.timecard.config
 
+import app.shamilton.timecard.config.cleaninterval.CleanInterval
+import app.shamilton.timecard.config.timeformat.TimeFormat
 import io.github.erayerdin.kappdirs.AppDirsFactory
 import io.github.erayerdin.kappdirs.appdirs.AppDirs
 import kotlinx.serialization.Serializable

@@ -1,7 +1,7 @@
 package app.shamilton.timecard.command
 
 import app.shamilton.timecard.Color.cyan
-import app.shamilton.timecard.config.CleanInterval
+import app.shamilton.timecard.config.cleaninterval.CleanInterval
 import app.shamilton.timecard.config.Configuration
 import app.shamilton.timecard.entry.TimeEntries
 import java.io.File
