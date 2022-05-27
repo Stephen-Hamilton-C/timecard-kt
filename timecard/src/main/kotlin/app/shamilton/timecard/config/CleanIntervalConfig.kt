@@ -2,13 +2,13 @@ package app.shamilton.timecard.config
 
 class CleanIntervalConfig : Config() {
 
-	override val m_Name: String = "clean_interval"
-	override var m_Value: String = CleanInterval.WEEKLY.name
-	override val m_PossibleValues: List<String> = listOf(
-		CleanInterval.MANUALLY.name,
-		CleanInterval.DAILY.name,
-		CleanInterval.WEEKLY.name,
-		CleanInterval.MONTHLY.name,
-	)
+	override val m_Name: String = "CLEAN_INTERVAL"
+	override var m_Value: String
+		get() = _config.clean_interval.name
+		set(value) {
+			_config.clean_interval = CleanInterval.valueOf(value)
+			_config.saveToFile()
+		}
+	override val m_PossibleValues: List<String> = CleanInterval.values().map { it.name }
 
 }
