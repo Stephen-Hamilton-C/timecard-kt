@@ -10,6 +10,7 @@
   - HH:MM
 - [x] Config setting
 - [ ] Make helps for configs
+- [ ] 12/24 hour time
 
 # Packaging
 In order of importance
