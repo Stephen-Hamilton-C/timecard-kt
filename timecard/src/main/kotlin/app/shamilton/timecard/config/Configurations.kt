@@ -12,7 +12,8 @@ import java.nio.file.Path
 
 @Serializable
 class Configurations (
-	var clean_interval: CleanInterval = CleanInterval.WEEKLY
+	var clean_interval: CleanInterval = CleanInterval.WEEKLY,
+	var time_format: TimeFormat = TimeFormat.WRITTEN,
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
