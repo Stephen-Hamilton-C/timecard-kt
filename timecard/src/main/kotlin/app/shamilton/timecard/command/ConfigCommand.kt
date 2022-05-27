@@ -5,7 +5,6 @@ import app.shamilton.timecard.Color.yellow
 import app.shamilton.timecard.Color.MAGENTA
 import app.shamilton.timecard.Color.YELLOW
 import app.shamilton.timecard.Color.magenta
-import app.shamilton.timecard.Color.green
 import app.shamilton.timecard.config.Config
 import app.shamilton.timecard.config.ConfigList
 
@@ -41,7 +40,6 @@ class ConfigCommand : ICommand {
 		} else {
 			// Invalid value
 			println(yellow("Unknown value for ${foundConfig.m_Name.lowercase()}. Known values are $MAGENTA${foundConfig.m_PossibleValues.joinToString("$YELLOW, $MAGENTA")}${yellow(".")}"))
-			return
 		}
 	}
 
