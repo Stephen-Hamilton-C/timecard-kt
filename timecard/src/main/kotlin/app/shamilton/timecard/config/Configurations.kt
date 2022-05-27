@@ -11,7 +11,7 @@ import java.nio.file.Files
 import java.nio.file.Path
 
 @Serializable
-class Configuration (
+class Configurations (
 	var clean_interval: CleanInterval = CleanInterval.WEEKLY
 ) {
 	companion object {
@@ -19,16 +19,16 @@ class Configuration (
 		val FILEPATH: Path = _appDirs.getUserConfigDir("timecard", "", "stephen-hamilton-c")
 		const val FILENAME: String = "config.yml"
 
-		private var _cached: Configuration? = null
+		private var _cached: Configurations? = null
 
-		@JvmStatic fun loadFromFile(path: Path = FILEPATH.resolve(FILENAME)): Configuration {
-			if(_cached != null && path == FILEPATH.resolve(FILENAME)) return _cached as Configuration
+		@JvmStatic fun loadFromFile(path: Path = FILEPATH.resolve(FILENAME)): Configurations {
+			if(_cached != null && path == FILEPATH.resolve(FILENAME)) return _cached as Configurations
 
-			var configuration = Configuration()
+			var configuration = Configurations()
 			val file: File = path.toFile()
 			if (file.exists()) {
 				val data = file.readText()
-				val deserializedConfig: Configuration? = Yaml.default.decodeFromString(data)
+				val deserializedConfig: Configurations? = Yaml.default.decodeFromString(data)
 				configuration = deserializedConfig ?: configuration
 			}
 			if (path == FILEPATH.resolve(FILENAME)) {

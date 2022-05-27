@@ -3,7 +3,7 @@ package app.shamilton.timecard.command
 import app.shamilton.timecard.App
 import app.shamilton.timecard.Color.yellow
 import app.shamilton.timecard.Color.cyan
-import app.shamilton.timecard.config.Configuration
+import app.shamilton.timecard.config.Configurations
 import app.shamilton.timecard.entry.TimeEntries
 import java.awt.Desktop
 import java.awt.HeadlessException
@@ -20,7 +20,7 @@ class OpenCommand : ICommand {
 	override fun execute() {
 		val arg: String? = App.getArg(1)
 		val directory: File = when(arg) {
-			"CONFIG" -> Configuration.FILEPATH.toFile()
+			"CONFIG" -> Configurations.FILEPATH.toFile()
 			"DATA" -> TimeEntries.FILEPATH.toFile()
 			null -> {
 				println(yellow("Must specify which directory! 'config' or 'data'?"))

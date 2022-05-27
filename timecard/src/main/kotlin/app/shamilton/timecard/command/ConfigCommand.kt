@@ -2,10 +2,12 @@ package app.shamilton.timecard.command
 
 import app.shamilton.timecard.App
 import app.shamilton.timecard.Color.yellow
+import app.shamilton.timecard.Color.MAGENTA
+import app.shamilton.timecard.Color.YELLOW
 import app.shamilton.timecard.Color.magenta
 import app.shamilton.timecard.Color.green
-import app.shamilton.timecard.config.CleanInterval
-import app.shamilton.timecard.config.Configuration
+import app.shamilton.timecard.config.Config
+import app.shamilton.timecard.config.ConfigList
 
 class ConfigCommand : ICommand {
 
@@ -23,32 +25,24 @@ class ConfigCommand : ICommand {
 			return
 		}
 
-		val config = Configuration.loadFromFile()
-
-		// TODO: Hmm... I should make configuration classes
-		when(configName) {
-			"CLEAN_INTERVAL" -> {
-				if(configValue == null){
-					// display value
-					println("clean_interval is currently set to ${magenta(config.clean_interval.toString())}")
-				} else {
-					// set value
-					val cleanInterval: CleanInterval? = CleanInterval.get(configValue.trim())
-					if (cleanInterval == null) {
-						println(yellow("Unknown value for clean_interval. Known values are ${magenta("manually")}${yellow(",")} ${magenta("daily")}${yellow(",")} ${magenta("weekly")}${yellow(",")} and ${magenta("monthly")}${yellow(".")}"))
-						return
-					}
-					config.clean_interval = cleanInterval
-					println("Set ${green(configName.lowercase())} to ${green(configValue)}")
-				}
-			}
-			else -> {
-				println(yellow("Unknown configuration! See 'timecard help config' for list of configs."))
-				return
-			}
+		val foundConfig: Config? = ConfigList.CONFIGS.find { it.m_Name == configName }
+		if(foundConfig == null) {
+			println(yellow("Unknown configuration! See 'timecard help config' for list of configs."))
+			return
 		}
 
-		config.saveToFile()
+		if(configValue == null){
+			// Display value
+			println("${foundConfig.m_Name.lowercase()} is currently set to ${magenta(foundConfig.m_Value)}")
+		} else if(foundConfig.m_PossibleValues.contains(configValue)) {
+			// Set value
+			foundConfig.m_Value = configValue
+			println("Set ${foundConfig.m_Name.lowercase()} to ${magenta(configValue)}")
+		} else {
+			// Invalid value
+			println(yellow("Unknown value for ${foundConfig.m_Name.lowercase()}. Known values are $MAGENTA${foundConfig.m_PossibleValues.joinToString("$YELLOW, $MAGENTA")}${yellow(".")}"))
+			return
+		}
 	}
 
 }
