@@ -8,4 +8,3 @@
  */
 
 rootProject.name = "timecard-kt"
-include("timecard-kt")
