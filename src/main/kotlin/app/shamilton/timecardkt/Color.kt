@@ -1,5 +1,6 @@
 package app.shamilton.timecardkt
 
+@Suppress("unused")
 object Color {
 
 	// Color code strings from
@@ -14,15 +15,15 @@ object Color {
 	const val WHITE: String = "\u001B[37m"
 	const val RESET: String = "\u001B[0m"
 
-	fun black(string: String) = colorize(BLACK, string)
-	fun red(string: String) = colorize(RED, string)
-	fun green(string: String) = colorize(GREEN, string)
-	fun yellow(string: String) = colorize(YELLOW, string)
-	fun blue(string: String) = colorize(BLUE, string)
-	fun magenta(string: String) = colorize(MAGENTA, string)
-	fun cyan(string: String) = colorize(CYAN, string)
-	fun white(string: String) = colorize(WHITE, string)
+	@JvmStatic fun black(string: Any?) = colorize(BLACK, string)
+	@JvmStatic fun red(string: Any?) = colorize(RED, string)
+	@JvmStatic fun green(string: Any?) = colorize(GREEN, string)
+	@JvmStatic fun yellow(string: Any?) = colorize(YELLOW, string)
+	@JvmStatic fun blue(string: Any?) = colorize(BLUE, string)
+	@JvmStatic fun magenta(string: Any?) = colorize(MAGENTA, string)
+	@JvmStatic fun cyan(string: Any?) = colorize(CYAN, string)
+	@JvmStatic fun white(string: Any?) = colorize(WHITE, string)
 
-	fun colorize(color: String, string: String) = "$color$string$RESET"
+	@JvmStatic fun colorize(color: String, string: Any?) = "$color${string.toString()}$RESET"
 
 }

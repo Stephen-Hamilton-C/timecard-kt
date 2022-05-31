@@ -24,7 +24,7 @@ class UndoCommand : ICommand {
 
 		if(timeEntries.isClockedIn()){
 			val removedEntry: TimeEntry = timeEntries.m_Entries.removeLast()
-			println("Undo: clock ${green("in")} at ${green(removedEntry.startTime.toString())}")
+			println("Undo: clock ${green("in")} at ${green(removedEntry.formattedStartTime)}")
 
 			if(timeEntries.m_Entries.isEmpty()) {
 				timeEntries.deleteFile()
@@ -32,12 +32,12 @@ class UndoCommand : ICommand {
 			} else {
 				timeEntries.saveToFile()
 				val lastEntry: TimeEntry = timeEntries.m_Entries.last()
-				println(red("Clocked out since ${lastEntry.endTime}"))
+				println(red("Clocked out since ${lastEntry.formattedEndTime}"))
 			}
 		} else {
 			val lastEntry: TimeEntry = timeEntries.m_Entries.last()
-			println("Undo: clock ${red("out")} at ${red(lastEntry.endTime.toString())}")
-			println(green("Clocked in since ${lastEntry.startTime}"))
+			println("Undo: clock ${red("out")} at ${red(lastEntry.formattedEndTime)}")
+			println(green("Clocked in since ${lastEntry.formattedStartTime}"))
 
 			lastEntry.endTime = null
 			timeEntries.saveToFile()

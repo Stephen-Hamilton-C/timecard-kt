@@ -2,6 +2,7 @@ package app.shamilton.timecardkt.config
 
 import app.shamilton.timecardkt.App
 import app.shamilton.timecardkt.config.cleaninterval.CleanInterval
+import app.shamilton.timecardkt.config.hour24.Hour24
 import app.shamilton.timecardkt.config.timeformat.TimeFormat
 import io.github.erayerdin.kappdirs.AppDirsFactory
 import io.github.erayerdin.kappdirs.appdirs.AppDirs
@@ -17,6 +18,7 @@ import java.nio.file.Path
 class Configuration (
 	var clean_interval: CleanInterval = CleanInterval.WEEKLY,
 	var time_format: TimeFormat = TimeFormat.WRITTEN,
+	var hour_24: Hour24 = Hour24.FALSE,
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()

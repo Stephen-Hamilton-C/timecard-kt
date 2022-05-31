@@ -38,7 +38,7 @@ class ClockOutCommand : ClockCommand() {
 		val lastEntry: TimeEntry = timeEntries.m_Entries.last()
 		lastEntry.endTime = endTime
 
-		println("Clocked ${red("out")} at ${red(lastEntry.endTime.toString())}")
+		println("Clocked ${red("out")} at ${red(lastEntry.formattedEndTime)}")
 
 		timeEntries.saveToFile()
 	}

@@ -93,7 +93,7 @@ class StatusCommand : ICommand {
 
 	private fun printClockState(timeEntries: TimeEntries) {
 		val lastEntry: TimeEntry = timeEntries.m_Entries.last()
-		val lastTime: LocalTime = lastEntry.endTime ?: lastEntry.startTime
+		val lastTime: String = lastEntry.formattedEndTime ?: lastEntry.formattedStartTime
 
 		val clockState = if(timeEntries.isClockedIn()) "in" else "out"
 		val color = if(timeEntries.isClockedIn()) GREEN else RED

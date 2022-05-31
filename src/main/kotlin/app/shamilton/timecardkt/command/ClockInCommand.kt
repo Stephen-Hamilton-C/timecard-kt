@@ -44,7 +44,7 @@ class ClockInCommand : ClockCommand() {
 		val newEntry = TimeEntry(startTime)
 		timeEntries.m_Entries.add(newEntry)
 
-		println("Clocked ${green("in")} at ${green(newEntry.startTime.toString())}")
+		println("Clocked ${green("in")} at ${green(newEntry.formattedStartTime)}")
 
 		timeEntries.saveToFile()
 	}
