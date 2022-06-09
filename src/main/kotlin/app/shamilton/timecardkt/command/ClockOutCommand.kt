@@ -10,7 +10,7 @@ import java.time.LocalTime
 class ClockOutCommand : ClockCommand() {
 	
 	override val m_Name: String = "OUT"
-	override val m_Help: String = "Clocks you out. If an offset is supplied, it will clock you out OFFSET minutes ago or at OFFSET time. Time must be in 24-hour time (e.g. 17:31)"
+	override val m_Help: String = "Clocks you out. If an offset is supplied, it will clock you out OFFSET minutes ago or at OFFSET time. Time must be in 24-hour time (e.g. 17:31)."
 
 	override fun execute() {
 		val timeEntries = TimeEntries.loadFromFile()

@@ -11,7 +11,7 @@ import java.time.Period
 class CleanCommand : IAutoCommand {
 
 	override val m_Name: String = "CLEAN"
-	override val m_Help: String = "" // TODO
+	override val m_Help: String = "Removes old timecard files."
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 

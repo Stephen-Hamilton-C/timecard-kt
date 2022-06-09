@@ -16,7 +16,7 @@ import kotlin.math.roundToInt
 class StatusCommand : ICommand {
 
 	override val m_Name: String = "STATUS"
-	override val m_Help: String = "Displays whether you're currently clocked in or not and how long you've been working today"
+	override val m_Help: String = "Displays whether you're currently clocked in or not and how long you've been working today."
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 

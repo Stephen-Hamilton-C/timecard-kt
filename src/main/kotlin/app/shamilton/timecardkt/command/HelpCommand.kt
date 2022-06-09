@@ -5,7 +5,7 @@ import app.shamilton.timecardkt.App
 class HelpCommand : ICommand {
 
 	override val m_Name: String = "HELP"
-	override val m_Help: String = "Shows this help message. If a command is given, shows only help for that command"
+	override val m_Help: String = "Shows this help message. If a command is given, shows detailed help for that command."
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf("[command]")
 

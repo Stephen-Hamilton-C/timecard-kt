@@ -9,7 +9,7 @@ import app.shamilton.timecardkt.entry.TimeEntry
 class LogCommand : ICommand {
 
 	override val m_Name: String = "LOG"
-	override val m_Help: String = "Shows history of clocking in and out for today"
+	override val m_Help: String = "Shows history of clocking in and out for today."
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 

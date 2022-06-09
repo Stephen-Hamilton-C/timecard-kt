@@ -10,7 +10,7 @@ import app.shamilton.timecardkt.entry.TimeEntry
 class UndoCommand : ICommand {
 
 	override val m_Name: String = "UNDO"
-	override val m_Help: String = "Undoes the last clock in/out action"
+	override val m_Help: String = "Undoes the last clock in/out action."
 	override val m_DetailedHelp: String? = null
 	override val m_HelpArgs: List<String> = listOf()
 
