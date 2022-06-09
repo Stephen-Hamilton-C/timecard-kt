@@ -13,5 +13,6 @@ class Hour24Config : Config() {
 		}
 
 	override val m_PossibleValues: List<String> = Hour24.values().map { it.name }
+	override val m_Help: String = "Determines whether or not to show time in 24-hour format."
 
 }

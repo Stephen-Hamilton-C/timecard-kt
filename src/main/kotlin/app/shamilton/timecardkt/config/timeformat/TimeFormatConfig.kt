@@ -13,5 +13,6 @@ class TimeFormatConfig : Config() {
 		}
 
 	override val m_PossibleValues: List<String> = TimeFormat.values().map { it.name }
+	override val m_Help: String = "Determines how time worked and time on break is displayed."
 
 }

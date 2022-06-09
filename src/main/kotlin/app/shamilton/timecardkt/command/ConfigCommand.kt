@@ -11,9 +11,18 @@ import app.shamilton.timecardkt.config.ConfigList
 class ConfigCommand : ICommand {
 
 	override val m_Name: String = "CONFIG"
-	override val m_Help: String = "" // TODO
-	override val m_DetailedHelp: String? = null //TODO: List configurations
-	override val m_HelpArgs: List<String> = listOf() // TODO
+	override val m_Help: String = "Displays or sets user preferences."
+	override val m_DetailedHelp: String
+		get() {
+			var detailedHelp = ""
+			for ((i: Int, config: Config) in ConfigList.CONFIGS.withIndex()) {
+				val tab = if(i == 0) "" else "	"
+				detailedHelp += "$tab- ${config.m_Name}: ${config.m_Help}\n"
+				detailedHelp += "		Possible values: ${config.m_PossibleValues.joinToString(", ")}\n"
+			}
+			return detailedHelp
+		}
+	override val m_HelpArgs: List<String> = listOf("<name>", "[value]")
 
 	override fun execute() {
 		val configName = App.getArg(1)

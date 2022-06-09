@@ -12,5 +12,6 @@ class CleanIntervalConfig : Config() {
 			_config.saveToFile()
 		}
 	override val m_PossibleValues: List<String> = CleanInterval.values().map { it.name }
+	override val m_Help: String = "Determines how long to keep timecard files."
 
 }
