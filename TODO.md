@@ -9,7 +9,7 @@
   - HH hours MM minutes (or MM minutes if minutes < 60)
   - HH:MM
 - [x] Config setting
-- [ ] Make helps for configs
+- [x] Make helps for configs
 - [x] 12/24 hour time
 
 # Packaging
