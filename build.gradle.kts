@@ -15,6 +15,8 @@ plugins {
 
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
+
+	id("edu.sc.seis.launch4j") version "2.5.3"
 }
 
 repositories {
@@ -63,4 +65,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 	kotlinOptions {
 		jvmTarget = "1.8"
 	}
+}
+
+tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
+	outfile = "timecard-kt.exe"
+	mainClassName = "app.shamilton.timecardkt.AppKt"
+	productName = "timecard-kt"
 }
