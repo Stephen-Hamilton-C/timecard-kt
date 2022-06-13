@@ -6,6 +6,28 @@
  * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
  */
 
+fun runCommand(command: String): String {
+	val process = ProcessBuilder()
+		.command(command.split(" "))
+		.directory(rootProject.projectDir)
+		.start()
+	return process.inputStream.bufferedReader().readText()
+}
+
+fun isAppRelease(): Boolean = runCommand("git log -n 1 --pretty=%d HEAD").contains("main")
+fun getCommit(): String = runCommand("git rev-parse --short HEAD")
+
+val appBaseVersion = "1.0.0"
+val appVersion = if(isAppRelease()) { appBaseVersion } else { "$appBaseVersion+SNAPSHOT.${getCommit()}" }
+
+tasks.create("example") {
+	doLast {
+		println(isAppRelease())
+		println(getCommit())
+		println(appVersion)
+	}
+}
+
 plugins {
 	// Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
 	id("org.jetbrains.kotlin.jvm") version "1.7.0"
@@ -16,6 +38,7 @@ plugins {
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
 
+	// Windows EXE build
 	id("edu.sc.seis.launch4j") version "2.5.3"
 }
 
@@ -67,6 +90,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 	}
 }
 
+// Create Windows EXE build
 tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	outfile = "timecard-kt.exe"
 	mainClassName = "app.shamilton.timecardkt.AppKt"
