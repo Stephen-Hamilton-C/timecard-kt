@@ -8,10 +8,10 @@
 
 plugins {
 	// Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
-	id("org.jetbrains.kotlin.jvm") version "1.6.10"
+	id("org.jetbrains.kotlin.jvm") version "1.7.0"
 
 	// Kotlinx Serialization
-	kotlin("plugin.serialization") version "1.6.10"
+	kotlin("plugin.serialization") version "1.7.0"
 
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
@@ -36,7 +36,7 @@ dependencies {
 
 	// Kaml - YAML Support for kotlinx.serialization
 	// https://github.com/charleskorn/kaml
-	implementation("com.charleskorn.kaml:kaml:0.43.0")
+	implementation("com.charleskorn.kaml:kaml:0.45.0")
 
 	// KAppDirs
 	// Better than Harawata's AppDirs as KAppDirs doesn't import JNA
