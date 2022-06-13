@@ -6,6 +6,9 @@
  * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
  */
 // https://blog.heckel.io/2014/05/29/gradle-create-windows-installers-debian-packages-manage-a-ppa-and-optional-sub-projects/
+val appBaseVersion = "1.0.0"
+
+
 
 fun runCommand(command: String): String {
 	val process = ProcessBuilder()
@@ -18,7 +21,6 @@ fun runCommand(command: String): String {
 fun isAppRelease(): Boolean = runCommand("git log -n 1 --pretty=%d HEAD").contains("main")
 fun getCommit(): String = runCommand("git rev-parse --short HEAD")
 
-val appBaseVersion = "1.0.0"
 val appVersion = if(isAppRelease()) { appBaseVersion } else { "$appBaseVersion+SNAPSHOT.${getCommit()}" }
 
 tasks.create("example") {
