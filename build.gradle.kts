@@ -44,6 +44,7 @@ plugins {
 	application
 
 	// Windows EXE build
+	// https://github.com/TheBoegl/gradle-launch4j
 	id("edu.sc.seis.launch4j") version "2.5.3"
 }
 
