@@ -101,3 +101,6 @@ tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	mainClassName = "app.shamilton.timecardkt.AppKt"
 	productName = "timecard-kt"
 }
+
+// Debian packaging tasks
+apply(from = "./debian.gradle")
