@@ -6,7 +6,9 @@
  * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
  */
 // https://blog.heckel.io/2014/05/29/gradle-create-windows-installers-debian-packages-manage-a-ppa-and-optional-sub-projects/
-val appBaseVersion = "1.0.0"
+
+//project.ext.appBaseVersion = "1.0.0"
+val appBaseVersion by rootProject.extra { "1.0.0" }
 
 
 
@@ -15,19 +17,19 @@ fun runCommand(command: String): String {
 		.command(command.split(" "))
 		.directory(rootProject.projectDir)
 		.start()
-	return process.inputStream.bufferedReader().readText()
+	return process.inputStream.bufferedReader().readText().trim()
 }
 
-fun isAppRelease(): Boolean = runCommand("git log -n 1 --pretty=%d HEAD").contains("main")
-fun getCommit(): String = runCommand("git rev-parse --short HEAD")
-
-val appVersion = if(isAppRelease()) { appBaseVersion } else { "$appBaseVersion+SNAPSHOT.${getCommit()}" }
+val isAppRelease by rootProject.extra { runCommand("git log -n 1 --pretty=%d HEAD").contains("main") }
+val commitHash by rootProject.extra { runCommand("git rev-parse --short HEAD") }
+val appVersion by rootProject.extra { if(rootProject.extra.get("isAppRelease") == true) { rootProject.extra.get("appBaseVersion") } else { "${rootProject.extra.get("appBaseVersion")}+SNAPSHOT.${rootProject.extra.get("commitHash")}" } }
 
 tasks.create("example") {
 	doLast {
-		println(isAppRelease())
-		println(getCommit())
-		println(appVersion)
+		println(rootProject.extra.get("appBaseVersion"))
+		println(rootProject.extra.get("isAppRelease"))
+		println(rootProject.extra.get("commitHash"))
+		println(rootProject.extra.get("appVersion"))
 	}
 }
 
