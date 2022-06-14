@@ -1,0 +1,13 @@
+Source: timecard-kt
+Maintainer: Stephen Hamilton <stephen.hamilton.c@gmail.com>
+Section: utils
+Priority: optional
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.4
+Homepage: https://github.com/Stephen-Hamilton-C/timecard-kt
+
+Package: timecard-kt
+Architecture: all
+Depends: default-jre (>= 1.8) | openjdk-8-jre-headless | openjdk-11-jre-headless | openjdk-17-jre-headless
+Homepage: https://github.com/Stephen-Hamilton-C/timecard-kt
+Description: A simple commandline time tracking program, written in Kotlin
