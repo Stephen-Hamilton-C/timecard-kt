@@ -29,7 +29,7 @@ tasks.create("debianClean") {
 }
 
 tasks.create("debianPrepare") {
-	dependsOn "debianClean"
+	dependsOn "build", "debianClean"
 	doLast {
 		unzipFile(new File("build/distributions/timecard-kt.zip"))
 
@@ -54,7 +54,7 @@ tasks.create("debianPrepare") {
 
 		// Copy Debian package configs
 		copy {
-			from rootProject.files("debian")
+			from rootProject.files("deploy/debian/debian")
 			into rootProject.file("build/debian/timecard-kt/debian")
 		}
 
@@ -62,11 +62,15 @@ tasks.create("debianPrepare") {
 		delete(Paths.get("build", "debian", "timecard-kt", "lib", "kotlin-stdlib-common-1.7.0.jar"))
 
 		// TODO: Create script to convert CHANGELOG.md to Debian changelog
+		exec {
+			workingDir rootProject.file("deploy/debian")
+			commandLine "python", "changelog.py"
+		}
 	}
 }
 
 tasks.create("debianBuild") {
-	dependsOn "build", "debianPrepare"
+	dependsOn "debianPrepare"
 	doLast {
 		exec {
 			workingDir rootProject.file("build/debian/timecard-kt")
@@ -76,7 +80,7 @@ tasks.create("debianBuild") {
 }
 
 tasks.create("debianDeploy") {
-	dependsOn "build", "debianPrepare"
+	dependsOn "debianPrepare"
 	isAppRelease = rootProject.ext.get("isAppRelease")
 	doLast {
 		exec {
