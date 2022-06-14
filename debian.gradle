@@ -33,38 +33,60 @@ tasks.create("debianPrepare") {
 	doLast {
 		unzipFile(new File("build/distributions/timecard-kt.zip"))
 
+		// Copy unzipped distribution, don't bring the Windows executable with it
 		copy {
 			from rootProject.files("build/distributions/timecard-kt")
 			into rootProject.file("build/debian/timecard-kt")
 			exclude("**/*.bat")
 		}
 
-		copy {
-			from rootProject.file("LICENSE")
-			into rootProject.file("build/debian/timecard-kt/debian")
-			rename("LICENSE", "copyright")
+		// Ensure executable is executable
+		exec {
+			workingDir rootProject.file("build/debian/timecard-kt/bin")
+			commandLine "chmod", "+x", "timecard-kt"
 		}
 
+		// Copy files from docs
 		copy {
 			from rootProject.files("LICENSE", "CHANGELOG.md", "README.md")
 			into rootProject.file("build/debian/timecard-kt")
 		}
 
+		// Copy Debian package configs
 		copy {
 			from rootProject.files("debian")
 			into rootProject.file("build/debian/timecard-kt/debian")
 		}
+
+		// Remove unused library so that Lintian can be happy
+		delete(Paths.get("build", "debian", "timecard-kt", "lib", "kotlin-stdlib-common-1.7.0.jar"))
 
 		// TODO: Create script to convert CHANGELOG.md to Debian changelog
 	}
 }
 
 tasks.create("debianBuild") {
-	dependsOn "debianPrepare"
+	dependsOn "build", "debianPrepare"
 	doLast {
 		exec {
 			workingDir rootProject.file("build/debian/timecard-kt")
 			commandLine "debuild", "-i", "-us", "-uc", "-b"
+		}
+	}
+}
+
+tasks.create("debianDeploy") {
+	dependsOn "build", "debianPrepare"
+	isAppRelease = rootProject.ext.get("isAppRelease")
+	doLast {
+		exec {
+			workingDir rootProject.file("build/debian/timecard-kt")
+			commandLine "sh", "-c", "yes | debuild -S"
+		}
+//		ppaName = isAppRelease ? "testing" : "ppa"
+		exec {
+			workingDir rootProject.file("build/debian")
+			commandLine "sh", "-c", "dput ppa:stephen-hamilton-c/testing *_source.changes"
 		}
 	}
 }
