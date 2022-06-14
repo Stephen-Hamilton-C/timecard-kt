@@ -105,6 +105,11 @@
     <codeStyleSettings language="JSON">
       <option name="WRAP_ON_TYPING" value="0" />
     </codeStyleSettings>
+    <codeStyleSettings language="Python">
+      <indentOptions>
+        <option name="USE_TAB_CHARACTER" value="true" />
+      </indentOptions>
+    </codeStyleSettings>
     <codeStyleSettings language="kotlin">
       <option name="CODE_STYLE_DEFAULTS" value="KOTLIN_OFFICIAL" />
       <option name="BLANK_LINES_AFTER_CLASS_HEADER" value="1" />
