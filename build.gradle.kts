@@ -104,4 +104,4 @@ tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 }
 
 // Debian packaging tasks
-apply(from = "./debian.gradle")
+apply(from = "./deploy/debian/debian.gradle")
