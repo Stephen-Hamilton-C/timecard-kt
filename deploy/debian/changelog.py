@@ -5,7 +5,7 @@ from datetime import datetime
 
 # TODO: Need to pass in version at some point
 CHANGELOG_HEADER = "timecard-kt (1.0.0) focal; urgency=medium\n\n"
-CHANGELOG_FOOTER = "\n -- Stephen Hamilton <stephen.hamilton.c@gmail.com>  "+datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S")+" +0000"
+CHANGELOG_FOOTER = "\n -- Stephen Hamilton <stephen.hamilton.c@gmail.com>  "+datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S")+" +0000\n"
 CHANGELOG_ITEM_PREFIX = "  * "
 
 SCRIPT_PATH = os.path.realpath(__file__)
