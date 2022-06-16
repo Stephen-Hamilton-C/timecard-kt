@@ -6,8 +6,8 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # Versions <!-- omit in toc -->
 
-- [1.0.0 - Unreleased](#100---unreleased)
+- [1.0.0 - 2022-06-16](#100---2022-06-16)
 
-# 1.0.0 - Unreleased
+# 1.0.0 - 2022-06-16
 
 - Initial release.
