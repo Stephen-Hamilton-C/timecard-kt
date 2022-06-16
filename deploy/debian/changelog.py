@@ -2,6 +2,7 @@
 import os
 import re
 import sys
+import subprocess
 from datetime import datetime
 
 # cd to rootProject dir
@@ -25,8 +26,16 @@ with open(APP_CLASS_PATH, 'r') as file:
 			VERSION = fileLine[openQuote+1:closeQuote]
 			print("VERSION determined from App.kt: "+VERSION)
 
-if len(sys.argv) > 1:
-	VERSION = VERSION + "-" + sys.argv[1]
+# Add SNAPSHOT to version along with git commit if branch is not `main`
+# https://stackoverflow.com/a/4760517
+gitLog = subprocess.run(["git", "log", "-n 1", "--pretty=%d", "HEAD"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
+gitCommitHash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
+if "main" not in gitLog:
+	VERSION = VERSION + "+SNAPSHOT." + gitCommitHash
+	print("Not in main branch, added snapshot suffix: "+VERSION)
+
+if len(sys.argv) > 1 and sys.argv[1].strip() != "":
+	VERSION = VERSION + "-" + sys.argv[1].strip()
 	print("Debian version found, VERSION is "+VERSION)
 print()
 

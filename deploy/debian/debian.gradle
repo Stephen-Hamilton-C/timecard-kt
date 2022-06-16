@@ -2,7 +2,7 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.zip.ZipFile
 
-var debianVersion = "1"
+var debianVersion = ""
 
 // https://stackoverflow.com/a/40624832
 def unzipFile(File file) {
@@ -85,14 +85,31 @@ tasks.create("debianBuild") {
 
 tasks.create("debianDeploy") {
 	dependsOn "debianPrepare"
+
+	// Determine which repo to publish to
 	doLast {
+		// Determine repo
+		def stdout = new ByteArrayOutputStream()
+		exec {
+			commandLine "git", "log", "-n 1", "--pretty=%d", "HEAD"
+			standardOutput = stdout
+		}
+
+		// Build source package
 		exec {
 			workingDir rootProject.file("build/debian/timecard-kt")
 			commandLine "sh", "-c", "yes | debuild -S"
 		}
+
+		// Deploy to launchpad
+		var isRelease = stdout.toString().trim().contains("main")
+		var repo = isRelease ? "ppa" : "snapshots"
+		exec {
+			commandLine "echo", "Publishing to "+repo+"..."
+		}
 		exec {
 			workingDir rootProject.file("build/debian")
-			commandLine "sh", "-c", "dput ppa:stephen-hamilton-c/testing *_source.changes"
+			commandLine "sh", "-c", "dput ppa:stephen-hamilton-c/"+repo+" *_source.changes"
 		}
 	}
 }
