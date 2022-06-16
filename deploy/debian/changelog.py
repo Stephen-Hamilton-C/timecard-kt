@@ -1,26 +1,44 @@
 #!/bin/python3
 import os
 import re
+import sys
 from datetime import datetime
 
-# TODO: Need to pass in version at some point
-CHANGELOG_HEADER = "timecard-kt (1.0.0) focal; urgency=medium\n\n"
-CHANGELOG_FOOTER = "\n -- Stephen Hamilton <stephen.hamilton.c@gmail.com>  "+datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S")+" +0000\n"
-CHANGELOG_ITEM_PREFIX = "  * "
-
+# cd to rootProject dir
 SCRIPT_PATH = os.path.realpath(__file__)
 SCRIPT_DIR = os.path.dirname(SCRIPT_PATH)
 os.chdir(SCRIPT_DIR)
 os.chdir("../../")
 ROOT_PROJECT_PATH = os.getcwd()
-
 # Now we are at rootProject directory. Let's do this.
+
+# Get app version
+print("Determining VERSION from App.kt...")
+APP_CLASS_PATH = os.path.join("src", "main", "kotlin", "app", "shamilton", "timecardkt", "App.kt")
+VERSION = ""
+with open(APP_CLASS_PATH, 'r') as file:
+	for fileLine in file.readlines():
+		fileLine = fileLine.strip()
+		if fileLine.startswith("const val VERSION"):
+			openQuote = fileLine.find("\"")
+			closeQuote = fileLine.find("\"", openQuote+1)
+			VERSION = fileLine[openQuote+1:closeQuote]
+			print("VERSION determined from App.kt: "+VERSION)
+
+if len(sys.argv) > 1:
+	VERSION = VERSION + "-" + sys.argv[1]
+	print("Debian version found, VERSION is "+VERSION)
+print()
+
+# Setup Changelog constants
+CHANGELOG_HEADER = "timecard-kt ("+VERSION+") focal; urgency=medium\n\n"
+CHANGELOG_FOOTER = "\n -- Stephen Hamilton <stephen.hamilton.c@gmail.com>  "+datetime.utcnow().strftime("%a, %d %b %Y %H:%M:%S")+" +0000\n"
+CHANGELOG_ITEM_PREFIX = "  * "
+
 CHANGELOG = "CHANGELOG.md"
 DEB_CHANGELOG = os.path.join("deploy", "debian", "debian", "changelog")
 
-if os.path.exists(DEB_CHANGELOG):
-	os.remove(DEB_CHANGELOG)
-
+# Checks if the line is a version header
 def findVersion(fileLine: str):
 	if not fileLine.startswith("# "): return False
 	if re.search(".\..\.. - ", fileLine):
@@ -28,6 +46,7 @@ def findVersion(fileLine: str):
 		return True
 	return False
 
+# Checks if the line is a feature header
 def getHeader(fileLine: str) -> str:
 	if fileLine.startswith("## "):
 		if fileLine.endswith(" <!-- omit in toc -->"):
@@ -37,17 +56,17 @@ def getHeader(fileLine: str) -> str:
 		print("Found feature header: "+header)
 		return header.strip()
 
+# Checks if the line is a changelog list item
 def getListItem(fileLine: str) -> str:
     if fileLine.startswith("- "):
         return fileLine[2:].strip()
 
+# Get all changelog list items
 listItems = []
-
 with open(CHANGELOG, 'r') as file:
-	fileLines = file.readlines()
 	header: str = None
 	foundVersion = False
-	for fileLine in fileLines:
+	for fileLine in file.readlines():
 		fileLine = fileLine.strip()
 		if not foundVersion:
 			foundVersion = findVersion(fileLine)
@@ -68,6 +87,7 @@ with open(CHANGELOG, 'r') as file:
 					print("Found listItem without header: "+listItem)
 					listItems.append(listItem)
 
+# Write the listItems to the debian changelog
 with open(DEB_CHANGELOG, 'w') as file:
     file.write(CHANGELOG_HEADER)
     
