@@ -7,32 +7,6 @@
  */
 // https://blog.heckel.io/2014/05/29/gradle-create-windows-installers-debian-packages-manage-a-ppa-and-optional-sub-projects/
 
-//project.ext.appBaseVersion = "1.0.0"
-val appBaseVersion by rootProject.extra { "1.0.0" }
-
-
-
-fun runCommand(command: String): String {
-	val process = ProcessBuilder()
-		.command(command.split(" "))
-		.directory(rootProject.projectDir)
-		.start()
-	return process.inputStream.bufferedReader().readText().trim()
-}
-
-val isAppRelease by rootProject.extra { runCommand("git log -n 1 --pretty=%d HEAD").contains("main") }
-val commitHash by rootProject.extra { runCommand("git rev-parse --short HEAD") }
-val appVersion by rootProject.extra { if(rootProject.extra.get("isAppRelease") == true) { rootProject.extra.get("appBaseVersion") } else { "${rootProject.extra.get("appBaseVersion")}+SNAPSHOT.${rootProject.extra.get("commitHash")}" } }
-
-tasks.create("example") {
-	doLast {
-		println(rootProject.extra.get("appBaseVersion"))
-		println(rootProject.extra.get("isAppRelease"))
-		println(rootProject.extra.get("commitHash"))
-		println(rootProject.extra.get("appVersion"))
-	}
-}
-
 plugins {
 	// Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
 	id("org.jetbrains.kotlin.jvm") version "1.7.0"
