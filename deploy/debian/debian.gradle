@@ -2,6 +2,8 @@ import java.nio.file.Files
 import java.nio.file.Paths
 import java.util.zip.ZipFile
 
+var debianVersion = ""
+
 // https://stackoverflow.com/a/40624832
 def unzipFile(File file) {
 	def zipFile = new ZipFile(file)
@@ -61,10 +63,9 @@ tasks.create("debianPrepare") {
 		// Remove unused library so that Lintian can be happy
 		delete(Paths.get("build", "debian", "timecard-kt", "lib", "kotlin-stdlib-common-1.7.0.jar"))
 
-		// TODO: Create script to convert CHANGELOG.md to Debian changelog
 		exec {
 			workingDir rootProject.file("deploy/debian")
-			commandLine "python", "changelog.py"
+			commandLine "python", "changelog.py", debianVersion
 		}
 	}
 }
@@ -81,13 +82,11 @@ tasks.create("debianBuild") {
 
 tasks.create("debianDeploy") {
 	dependsOn "debianPrepare"
-	isAppRelease = rootProject.ext.get("isAppRelease")
 	doLast {
 		exec {
 			workingDir rootProject.file("build/debian/timecard-kt")
 			commandLine "sh", "-c", "yes | debuild -S"
 		}
-//		ppaName = isAppRelease ? "testing" : "ppa"
 		exec {
 			workingDir rootProject.file("build/debian")
 			commandLine "sh", "-c", "dput ppa:stephen-hamilton-c/testing *_source.changes"
