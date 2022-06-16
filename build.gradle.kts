@@ -5,6 +5,7 @@
  * For more details take a look at the 'Building Java & JVM projects' chapter in the Gradle
  * User Manual available at https://docs.gradle.org/7.4.2/userguide/building_java_projects.html
  */
+// https://blog.heckel.io/2014/05/29/gradle-create-windows-installers-debian-packages-manage-a-ppa-and-optional-sub-projects/
 
 plugins {
 	// Apply the org.jetbrains.kotlin.jvm Plugin to add support for Kotlin.
@@ -16,6 +17,8 @@ plugins {
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
 
+	// Windows EXE build
+	// https://github.com/TheBoegl/gradle-launch4j
 	id("edu.sc.seis.launch4j") version "2.5.3"
 }
 
@@ -67,8 +70,12 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 	}
 }
 
+// Create Windows EXE build
 tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	outfile = "timecard-kt.exe"
 	mainClassName = "app.shamilton.timecardkt.AppKt"
 	productName = "timecard-kt"
 }
+
+// Debian packaging tasks
+apply(from = "./deploy/debian/debian.gradle")

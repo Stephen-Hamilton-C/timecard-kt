@@ -1,0 +1,19 @@
+Source: timecard-kt
+Maintainer: Stephen Hamilton <stephen.hamilton.c@gmail.com>
+Section: utils
+Priority: optional
+Build-Depends: debhelper (>= 9)
+Standards-Version: 3.9.4
+Homepage: https://github.com/Stephen-Hamilton-C/timecard-kt
+
+Package: timecard-kt
+Architecture: all
+Depends: default-jre (>= 1.8) | openjdk-8-jre-headless | openjdk-11-jre-headless | openjdk-17-jre-headless
+Homepage: https://github.com/Stephen-Hamilton-C/timecard-kt
+Description: Simple commandline time tracking program, written in Kotlin
+ timecard-kt is a command line time tracking program
+ written by a developer, for developers.
+ Quick syntax allows time tracking to be easy, while also being customizable.
+ Supports quarter-hour rounding, 24-hour time, and automatic cleanup.
+ Configuration file is stored as a simple human readable YAML file.
+ Data files are stored as simple JSON files that are developer readable.

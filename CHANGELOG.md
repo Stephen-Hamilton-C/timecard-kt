@@ -10,4 +10,4 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # 1.0.0 - Unreleased
 
-## Features <!-- omit in toc -->
+- Initial release.
