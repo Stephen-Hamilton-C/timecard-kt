@@ -32,6 +32,14 @@ tasks.create("debianClean") {
 
 tasks.create("debianPrepare") {
 	dependsOn "build", "debianClean"
+
+	doFirst {
+		exec {
+			workingDir rootProject.file("deploy/debian")
+			commandLine "python", "changelog.py", debianVersion
+		}
+	}
+
 	doLast {
 		unzipFile(new File("build/distributions/timecard-kt.zip"))
 
@@ -62,11 +70,6 @@ tasks.create("debianPrepare") {
 
 		// Remove unused library so that Lintian can be happy
 		delete(Paths.get("build", "debian", "timecard-kt", "lib", "kotlin-stdlib-common-1.7.0.jar"))
-
-		exec {
-			workingDir rootProject.file("deploy/debian")
-			commandLine "python", "changelog.py", debianVersion
-		}
 	}
 }
 
