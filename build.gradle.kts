@@ -16,9 +16,15 @@ plugins {
 	// Apply the application plugin to add support for building a CLI application in Java.
 	application
 
-	// Windows EXE build
+	//#region Windows
+	// Build EXE
 	// https://github.com/TheBoegl/gradle-launch4j
 	id("edu.sc.seis.launch4j") version "2.5.3"
+
+	// NSIS Windows Installer creator
+	// https://github.com/langmo/gradle-nsis
+	id("com.github.langmo.gradlensis") version "0.1.0"
+	//#endregion
 }
 
 repositories {
@@ -69,6 +75,10 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 	}
 }
 
+// Debian packaging tasks
+apply(from = "./deploy/debian/debian.gradle")
+
+//#region Windows
 // Create Windows EXE build
 tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	headerType = "console"
@@ -77,5 +87,9 @@ tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	productName = "timecard-kt"
 }
 
-// Debian packaging tasks
-apply(from = "./deploy/debian/debian.gradle")
+// Create Windows installer
+nsis {
+	configuration.set(file("${rootProject.projectDir}/deploy/windows/nsis.nsi"))
+	runIn.set(file(rootProject.projectDir))
+}
+//#endregion
