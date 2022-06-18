@@ -10,7 +10,7 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
   - [Install from Source](#install-from-source)
     - [Any Platform](#any-platform)
     - [Ubuntu/Debian](#ubuntudebian)
-    - [Windows (Untested)](#windows-untested)
+    - [Windows](#windows-1)
 
 ## Installation
 
@@ -21,7 +21,11 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
 3. Run `sudo apt install timecard-kt`
 
 ### Windows
-See [Install from Source](#windows-untested)
+1. Download the Windows zip folder from [releases](https://github.com/Stephen-Hamilton-C/timecard-kt/releases/latest).
+2. Right click the zip folder and click Extract All.
+3. Move `lib` and `timecard-kt.exe` to desired location. (Like `C:\Program Files\timecard-kt`)
+4. Add parent folder to your PATH
+*Installer coming soon*
 
 ## Install from Source
 
