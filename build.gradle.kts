@@ -72,6 +72,7 @@ tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
 
 // Create Windows EXE build
 tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
+	headerType = "console"
 	outfile = "timecard-kt.exe"
 	mainClassName = "app.shamilton.timecardkt.AppKt"
 	productName = "timecard-kt"
