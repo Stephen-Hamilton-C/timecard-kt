@@ -53,7 +53,7 @@ For example, for manually installing only for the user on Linux:
 
 ### Windows (Untested)
 1. Run `.\gradlew.bat createExe`
-2. Move the exe file in `.\build\launch4j\` to your desired location (like your User folder for example)
+2. Move the exe and lib file in `.\build\launch4j\` to your desired location (like your User folder for example)
 3. [Add the folder to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
 4. Open a Command Prompt or Windows Powershell
 5. Run `timecard-kt.exe help`
