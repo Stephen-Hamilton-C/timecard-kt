@@ -27,13 +27,41 @@ Section "timecard-kt" SecInstall
     FILE build\launch4j\timecard-kt.exe
     SetOutPath "$INSTDIR\lib"
     FILE "build\launch4j\lib\*"
+
+    ; Uninstaller
+    WriteUninstaller "$INSTDIR\uninstall.exe"
+    CreateDirectory "$SMPROGRAMS\timecard-kt"
+    CreateShortCut "$SMPROGRAMS\timecard-kt\Uninstall timecard-kt.lnk" "$INSTDIR\uninstall.exe"
 SectionEnd
 Section "Add to PATH" SecPath
+    ; TODO: Should use EnVar. For now, this is OK, but could cause bugs in some edge cases.
+    
     ; https://nsis-dev.github.io/NSIS-Forums/html/t-335716.html
     ReadRegStr $0 HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "Path"    # read current PATH into $0
     StrCpy $0 "$0;$INSTDIR"   # append your path to the current PATH value
     WriteRegStr HKLM "SYSTEM\CurrentControlSet\Control\Session Manager\Environment" "Path" '$0' # write back the new PATH
     DetailPrint "Added $INSTDIR to system PATH"
+SectionEnd
+Section Uninstall
+    Delete "$INSTDIR\timecard-kt.exe"
+    Delete "$INSTDIR\lib\*"
+    RMDir "$INSTDIR\lib"
+    Delete "$INSTDIR\LICENSE"
+    Delete "$INSTDIR\uninstall.exe"
+    RMDir "$INSTDIR"
+
+    ; Delete uninstaller shortcut
+    Delete "$SMPROGRAMS\timecard-kt\Uninstall timecard-kt.lnk"
+    RMDir "$SMPROGRAMS\timecard-kt"
+
+    ; Delete configuration files
+    Delete "$LOCALAPPDATA\stephen-hamilton-c\timecard-kt\timecard_*.json"
+    Delete "$LOCALAPPDATA\stephen-hamilton-c\timecard-kt\config.yml"
+    RMDir "$LOCALAPPDATA\stephen-hamilton-c\timecard-kt"
+    RMDir "$LOCALAPPDATA\stephen-hamilton-c"
+
+    ; TODO: Need to remove from PATH, use EnVar.
+    MessageBox MB_OK "You will need to manually remove timecard-kt from your PATH."
 SectionEnd
 
 Function .onInit
