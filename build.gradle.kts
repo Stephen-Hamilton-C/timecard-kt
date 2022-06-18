@@ -87,6 +87,13 @@ tasks.withType<edu.sc.seis.launch4j.tasks.DefaultLaunch4jTask> {
 	productName = "timecard-kt"
 }
 
+// Ensure exe exists
+tasks {
+	createInstaller {
+		dependsOn("createExe")
+	}
+}
+
 // Create Windows installer
 nsis {
 	configuration.set(file("${rootProject.projectDir}/deploy/windows/nsis.nsi"))
