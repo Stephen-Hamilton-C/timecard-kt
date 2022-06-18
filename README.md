@@ -51,7 +51,7 @@ For example, for manually installing only for the user on Linux:
 2. Run `sudo apt install ./build/debian/timecard-kt*.deb`
 3. Run `timecard-kt help` to get started
 
-### Windows (Untested)
+### Windows
 1. Run `.\gradlew.bat createExe`
 2. Move the exe and lib file in `.\build\launch4j\` to your desired location (like your User folder for example)
 3. [Add the folder to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
