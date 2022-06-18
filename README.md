@@ -13,6 +13,9 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
     - [Windows](#windows-1)
       - [Installer](#installer)
       - [Manual](#manual)
+  - [Files](#files)
+    - [Windows](#windows-2)
+    - [Linux](#linux)
 
 ## Installation
 
@@ -63,3 +66,13 @@ For example, for manually installing only for the user on Linux:
 #### Manual
 1. Run `.\gradlew.bat createExe`
 2. Find the executable and `lib` folder in `.\build\launch4j`
+
+## Files
+
+### Windows
+- Timecard logs and `config.yml` are found in `%LocalAppData%\stephen-hamilton-c\timecard-kt\`
+
+### Linux
+<!-- TODO: Need to confirm this -->
+- Timecard logs are found in `~/.local/share/timecard-kt/`
+- `config.yml` is found in `~/.config/timecard-kt/`
