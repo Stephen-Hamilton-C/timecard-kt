@@ -11,10 +11,9 @@ tasks.create("snapPrepare") {
 tasks.create("snapBuild") {
     // Don't need to depend on snapPrepare - snapcraft will clone this repo and run snapPrepare
     doLast {
-        copy {
-            from rootProject.file("snapcraft.yaml")
-            into rootProject.file("snapcraft.yaml.orig")
-        }
+        def craft = new File("snapcraft.yaml")
+        def origCraft = new File("snapcraft.yaml.orig")
+        origCraft.write(craft.text)
         exec {
             workingDir rootProject.file("deploy/snap")
 			commandLine "python", "version_setter.py"
@@ -22,10 +21,8 @@ tasks.create("snapBuild") {
         exec {
             commandLine "bash", "-c", "snapcraft"
         }
-        copy {
-            from rootProject.file("snapcraft.yaml.orig")
-            into rootProject.file("snapcraft.yaml")
-        }
-        delete("snapcraft.yaml")
+        craft.delete()
+        craft.write(origCraft.text)
+        origCraft.delete()
     }
 }
