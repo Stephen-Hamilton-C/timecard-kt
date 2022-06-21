@@ -1,5 +1,6 @@
 name: timecard-kt
-version: '1.0.1'
+# Version gets set by version_setter.py
+version: '0'
 summary: Simple commandline time tracking program, written in Kotlin
 description: |
   timecard-kt is a command line time tracking program
