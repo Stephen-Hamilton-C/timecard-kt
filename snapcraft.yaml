@@ -11,7 +11,7 @@ description: |
 base: core18
 apps:
   timecard-kt:
-    command: ls -lR $SNAP
+    command: java -jar $SNAP/jar/timecard-kt_fat.jar
 parts:
   timecard-kt:
     plugin: gradle
@@ -19,4 +19,4 @@ parts:
     source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
     #source-tag: v$SNAPCRAFT_PROJECT_VERSION
     source-branch: snap
-confinement: strict
+confinement: classic
