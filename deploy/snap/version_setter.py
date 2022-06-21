@@ -16,10 +16,10 @@ from version import getVersion
 VERSION = getVersion()
 
 fileLines = []
-with open("snapcraft.yaml", "r") as file:
+with open("deploy/snap/snapcraft.yaml", "r") as file:
 	fileLines = file.readlines()
 
-with open("snapcraft.yaml", "w") as file:
+with open("deploy/snap/snapcraft.yaml", "w") as file:
 	for fileLine in fileLines:
 		if fileLine.startswith("version: "):
 			fileLine = "version: '"+VERSION+"'\n"

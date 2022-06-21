@@ -1,6 +1,6 @@
 name: timecard-kt
 # Version gets set by version_setter.py
-version: '0'
+version: '1.0.1'
 summary: Simple commandline time tracking program, written in Kotlin
 description: |
   timecard-kt is a command line time tracking program
@@ -18,7 +18,8 @@ parts:
     plugin: gradle
     gradle-options: [snapPrepare]
     source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
-    source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    #source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    source-branch: snap
     stage-packages:
       - openjdk-11-jre
 confinement: classic

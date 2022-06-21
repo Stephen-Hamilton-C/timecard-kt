@@ -11,15 +11,16 @@ tasks.create("snapPrepare") {
 tasks.create("snapBuild") {
     // Don't need to depend on snapPrepare - snapcraft will clone this repo and run snapPrepare
     doLast {
-        def craft = new File("snapcraft.yaml")
-        def origCraft = new File("snapcraft.yaml.orig")
+        def craft = new File("deploy/snap/snapcraft.yaml")
+        def origCraft = new File("deploy/snap/snapcraft.yaml.orig")
         origCraft.write(craft.text)
         exec {
-            workingDir rootProject.file("deploy/snap")
-			commandLine "python", "version_setter.py"
+		workingDir rootProject.file("deploy/snap")
+		commandLine "python", "version_setter.py"
         }
         exec {
-            commandLine "bash", "-c", "snapcraft"
+		workingDir rootProject.file("deploy/snap")
+		commandLine "bash", "-c", "snapcraft"
         }
         craft.delete()
         craft.write(origCraft.text)
@@ -31,7 +32,9 @@ tasks.create("snapDeploy") {
     dependsOn("snapBuild")
     doLast {
         exec {
-            commandLine "bash", "-c", "\"snapcraft upload timecard-kt_*.snap\""
+		workingDir rootProject.file("deploy/snap")
+		// TODO: Figure out how to have this wildcard actually work
+		commandLine "bash", "-c", "\"snapcraft upload timecard-kt_*.snap\""
         }
     }
 }
