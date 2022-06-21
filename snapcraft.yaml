@@ -22,5 +22,4 @@ parts:
     source-branch: snap
     stage-packages:
       - openjdk-11-jre
-adopt-info: timecard-kt
 confinement: classic
