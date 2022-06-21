@@ -22,4 +22,5 @@ parts:
     source-branch: snap
     stage-packages:
       - openjdk-11-jre
+# FIXME: Need to use strict confinement. Probably can set XDG_CONFIG_HOME and XDG_DATA_HOME to somewhere within the $SNAP.
 confinement: classic
