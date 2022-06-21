@@ -13,6 +13,8 @@ base: core18
 apps:
   timecard-kt:
     command: java -jar $SNAP/jar/timecard-kt_fat.jar
+    environment:
+      XDG_CONFIG_HOME: "$SNAP/"
 parts:
   timecard-kt:
     plugin: gradle
@@ -23,4 +25,5 @@ parts:
     stage-packages:
       - openjdk-11-jre
 # FIXME: Need to use strict confinement. Probably can set XDG_CONFIG_HOME and XDG_DATA_HOME to somewhere within the $SNAP.
-confinement: classic
+# Maybe set them to $SNAP_USER_DATA?
+confinement: strict
