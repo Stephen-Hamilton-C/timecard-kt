@@ -26,3 +26,12 @@ tasks.create("snapBuild") {
         origCraft.delete()
     }
 }
+
+tasks.create("snapDeploy") {
+    dependsOn("snapBuild")
+    doLast {
+        exec {
+            commandLine "bash", "-c", "\"snapcraft upload timecard-kt_*.snap\""
+        }
+    }
+}
