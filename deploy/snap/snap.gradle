@@ -20,7 +20,7 @@ tasks.create("snapBuild") {
 			commandLine "python", "version_setter.py"
         }
         exec {
-            commandLine "bash", "-c" "snapcraft"
+            commandLine "bash", "-c", "snapcraft"
         }
         copy {
             from rootProject.file("snapcraft.yaml.orig")
