@@ -13,18 +13,10 @@ os.chdir("../../")
 ROOT_PROJECT_PATH = os.getcwd()
 # Now we are at rootProject directory. Let's do this.
 
-# Get app version
-print("Determining VERSION from App.kt...")
-APP_CLASS_PATH = os.path.join("src", "main", "kotlin", "app", "shamilton", "timecardkt", "App.kt")
-VERSION = ""
-with open(APP_CLASS_PATH, 'r') as file:
-	for fileLine in file.readlines():
-		fileLine = fileLine.strip()
-		if fileLine.startswith("const val VERSION"):
-			openQuote = fileLine.find("\"")
-			closeQuote = fileLine.find("\"", openQuote+1)
-			VERSION = fileLine[openQuote+1:closeQuote]
-			print("VERSION determined from App.kt: "+VERSION)
+sys.path.append('deploy')
+from version import getVersion
+
+VERSION = getVersion()
 
 # Add SNAPSHOT to version along with git commit if branch is not `main`
 # https://stackoverflow.com/a/4760517
