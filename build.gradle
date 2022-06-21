@@ -93,3 +93,6 @@ launch4j {
 
 // Debian packaging tasks
 apply from: "./deploy/debian/debian.gradle"
+
+// Snap packaging tasks
+apply from: "./deploy/snap/snap.gradle"
