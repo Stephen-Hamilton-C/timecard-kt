@@ -20,6 +20,7 @@ parts:
   timecard-kt:
     plugin: gradle
     gradle-options: [snapPrepare]
+    gradle-output-dir: build/snap
     source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
     source-tag: v$SNAPCRAFT_PROJECT_VERSION
     stage-packages:

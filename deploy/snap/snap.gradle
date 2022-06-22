@@ -1,5 +1,16 @@
-tasks.create("snapPrepare") {
-    dependsOn("fatJar")
+// Fat jar
+task snapPrepare(type: Jar) {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	archiveFileName = "timecard-kt_fat.jar"
+	destinationDirectory = file("$rootDir/build/snap")
+	manifest {
+		attributes "Main-Class": "app.shamilton.timecardkt.AppKt"
+	}
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	with jar
 }
 
 tasks.create("snapBuild") {
