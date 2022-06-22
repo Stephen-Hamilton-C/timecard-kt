@@ -23,10 +23,10 @@ parts:
     gradle-output-dir: build/snap
     source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
     source-tag: v$SNAPCRAFT_PROJECT_VERSION
-    build-packages:
-      - ca-certificates
-      - ca-certificates-java
-      - default-jre-headless
+    #source-branch: snap
+    override-prime: |
+      snapcraftctl prime
+      rm -vf usr/lib/jvm/java-*-openjdk-*/lib/security/blacklisted.certs
     stage-packages:
       - default-jre-headless
 confinement: strict
