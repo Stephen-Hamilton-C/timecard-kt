@@ -57,7 +57,7 @@ dependencies {
 // Fat jar
 task fatJar(type: Jar) {
 	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-	archiveFileName = "timecard-kt.jar"
+	archiveFileName = "timecard-kt_fat.jar"
 	manifest {
 		attributes "Main-Class": "app.shamilton.timecardkt.AppKt"
 	}
