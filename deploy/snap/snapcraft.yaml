@@ -12,7 +12,7 @@ description: |
 base: core18
 apps:
   timecard-kt:
-    command: java -jar $SNAP/jar/timecard-kt_fat.jar
+    command: java -jar -Djava.awt.headless=true $SNAP/jar/timecard-kt_fat.jar
     environment:
       XDG_CONFIG_HOME: "$SNAP_USER_DATA/"
       XDG_DATA_HOME: "$SNAP_USER_COMMON/"
