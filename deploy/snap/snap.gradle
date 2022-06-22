@@ -15,6 +15,14 @@ task snapPrepare(type: Jar) {
 
 tasks.create("snapBuild") {
     // Don't need to depend on snapPrepare - snapcraft will clone this repo and run snapPrepare
+
+	// Delete old build artifacts
+	doFirst {
+		delete fileTree("deploy/snap") {
+			include "timecard-kt_*.snap"
+		}
+	}
+
     doLast {
         def craft = new File("deploy/snap/snapcraft.yaml")
         def origCraft = new File("deploy/snap/snapcraft.yaml.orig")
@@ -38,7 +46,6 @@ tasks.create("snapDeploy") {
     doLast {
         exec {
 		workingDir rootProject.file("deploy/snap")
-		// TODO: Figure out how to have this wildcard actually work
 		commandLine "bash", "-c", "snapcraft upload timecard-kt_*.snap"
         }
     }
