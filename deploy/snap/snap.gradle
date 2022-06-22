@@ -28,12 +28,12 @@ tasks.create("snapBuild") {
         def origCraft = new File("deploy/snap/snapcraft.yaml.orig")
         origCraft.write(craft.text)
         exec {
-		workingDir rootProject.file("deploy/snap")
-		commandLine "python", "version_setter.py"
+			workingDir rootProject.file("deploy/snap")
+			commandLine "python", "version_setter.py"
         }
         exec {
-		workingDir rootProject.file("deploy/snap")
-		commandLine "bash", "-c", "snapcraft"
+			workingDir rootProject.file("deploy/snap")
+			commandLine "bash", "-c", "snapcraft"
         }
         craft.delete()
         craft.write(origCraft.text)
@@ -44,9 +44,18 @@ tasks.create("snapBuild") {
 tasks.create("snapDeploy") {
     dependsOn("snapBuild")
     doLast {
+		// Determine channel
+		def stdout = new ByteArrayOutputStream()
+		exec {
+			commandLine "git", "log", "-n 1", "--pretty=%d", "HEAD"
+			standardOutput = stdout
+		}
+		var isRelease = stdout.toString().trim().contains("main")
+		var channel = isRelease ? "stable" : "edge"
+		// Deploy to Snapcraft store
         exec {
-		workingDir rootProject.file("deploy/snap")
-		commandLine "bash", "-c", "snapcraft upload timecard-kt_*.snap"
+			workingDir rootProject.file("deploy/snap")
+			commandLine "bash", "-c", "snapcraft upload --release="+channel+" timecard-kt_*.snap"
         }
     }
 }
