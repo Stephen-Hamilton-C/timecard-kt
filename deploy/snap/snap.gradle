@@ -39,7 +39,7 @@ tasks.create("snapDeploy") {
         exec {
 		workingDir rootProject.file("deploy/snap")
 		// TODO: Figure out how to have this wildcard actually work
-		commandLine "bash", "-c", "\"snapcraft upload timecard-kt_*.snap\""
+		commandLine "bash", "-c", "snapcraft upload timecard-kt_*.snap"
         }
     }
 }
