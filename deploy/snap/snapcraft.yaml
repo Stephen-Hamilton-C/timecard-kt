@@ -1,5 +1,5 @@
 name: timecard-kt
-# Version gets set by version_setter.py
+# Version gets set by snap.py
 version: '0'
 summary: Simple commandline time tracking program, written in Kotlin
 description: |
@@ -22,8 +22,9 @@ parts:
     gradle-options: [snapPrepare]
     gradle-output-dir: build/snap
     source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
-    source-tag: v$SNAPCRAFT_PROJECT_VERSION
-    #source-branch: snap
+    # Set by snap.py
+    #source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    #source-branch: <branch>
     override-prime: |
       snapcraftctl prime
       rm -vf usr/lib/jvm/java-*-openjdk-*/lib/security/blacklisted.certs

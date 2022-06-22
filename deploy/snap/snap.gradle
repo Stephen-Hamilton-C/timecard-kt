@@ -29,7 +29,7 @@ tasks.create("snapBuild") {
         origCraft.write(craft.text)
         exec {
 			workingDir rootProject.file("deploy/snap")
-			commandLine "python", "version_setter.py"
+			commandLine "python", "snap.py"
         }
         exec {
 			workingDir rootProject.file("deploy/snap")

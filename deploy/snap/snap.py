@@ -1,5 +1,6 @@
 #!/bin/python3
 import os
+import subprocess
 import sys
 
 # cd to rootProject dir
@@ -25,4 +26,15 @@ with open("deploy/snap/snapcraft.yaml", "w") as file:
 			fileLine = "version: '"+VERSION+"'\n"
 			print("Set version line:")
 			print(fileLine[:-1])
+		elif fileLine.strip().startswith("#source-tag:") and not "SNAPSHOT" in VERSION:
+			fileLine = fileLine.replace("#", "", 1)
+			print("Detected release version, set source-tag line:")
+			print(fileLine[:-1])
+		elif fileLine.strip().startswith("#source-branch:") and "SNAPSHOT" in VERSION:
+			branch = subprocess.run(["git", "rev-parse", "--abbrev-ref", "HEAD"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
+			fileLine = fileLine.replace("#", "", 1)
+			fileLine = fileLine.replace("<branch>", branch, 1)
+			print("Detected SNAPSHOT version, set source-branch line:")
+			print(fileLine[:-1])
+
 		file.write(fileLine)
