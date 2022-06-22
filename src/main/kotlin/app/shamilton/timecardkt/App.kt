@@ -6,6 +6,8 @@ package app.shamilton.timecardkt
 import app.shamilton.timecardkt.command.CommandList
 import app.shamilton.timecardkt.command.IAutoCommand
 import app.shamilton.timecardkt.command.ICommand
+import java.nio.file.InvalidPathException
+import java.nio.file.Paths
 
 object App {
 
@@ -32,7 +34,21 @@ object App {
 
 }
 
+private fun isValidPath(path: String?): Boolean {
+	if(path.isNullOrBlank()) return false
+	try {
+		Paths.get(path)
+	} catch(e: InvalidPathException) {
+		return false
+	}
+	return true
+}
+
 fun main(args: Array<String>) {
+	println("XDG_CONFIG_HOME is set: ${System.getenv().containsKey("XDG_CONFIG_HOME")}")
+	println("XDG_CONFIG_HOME is valid path: ${isValidPath(System.getenv("XDG_CONFIG_HOME"))}")
+	println("XDG_DATA_HOME is set: ${System.getenv().containsKey("XDG_DATA_HOME")}")
+	println("XDG_DATA_HOME is valid path: ${isValidPath(System.getenv("XDG_DATA_HOME"))}")
 	App.setArgs(args)
 	val commandName: String = App.getArg(0) ?: "STATUS"
 	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
