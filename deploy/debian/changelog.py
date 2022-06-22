@@ -2,7 +2,6 @@
 import os
 import re
 import sys
-import subprocess
 from datetime import datetime
 
 # cd to rootProject dir
@@ -13,26 +12,10 @@ os.chdir("../../")
 ROOT_PROJECT_PATH = os.getcwd()
 # Now we are at rootProject directory. Let's do this.
 
-# Get app version
-print("Determining VERSION from App.kt...")
-APP_CLASS_PATH = os.path.join("src", "main", "kotlin", "app", "shamilton", "timecardkt", "App.kt")
-VERSION = ""
-with open(APP_CLASS_PATH, 'r') as file:
-	for fileLine in file.readlines():
-		fileLine = fileLine.strip()
-		if fileLine.startswith("const val VERSION"):
-			openQuote = fileLine.find("\"")
-			closeQuote = fileLine.find("\"", openQuote+1)
-			VERSION = fileLine[openQuote+1:closeQuote]
-			print("VERSION determined from App.kt: "+VERSION)
+sys.path.append('deploy')
+from version import getVersion
 
-# Add SNAPSHOT to version along with git commit if branch is not `main`
-# https://stackoverflow.com/a/4760517
-gitLog = subprocess.run(["git", "log", "-n 1", "--pretty=%d", "HEAD"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
-gitCommitHash = subprocess.run(["git", "rev-parse", "--short", "HEAD"], stdout=subprocess.PIPE).stdout.decode("utf-8").strip()
-if "main" not in gitLog:
-	VERSION = VERSION + "+SNAPSHOT." + gitCommitHash
-	print("Not in main branch, added snapshot suffix: "+VERSION)
+VERSION = getVersion()
 
 if len(sys.argv) > 1 and sys.argv[1].strip() != "":
 	VERSION = VERSION + "-" + sys.argv[1].strip()

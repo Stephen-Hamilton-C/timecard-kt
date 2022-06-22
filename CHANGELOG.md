@@ -7,6 +7,13 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 # Versions <!-- omit in toc -->
 
 - [1.0.0 - 2022-06-16](#100---2022-06-16)
+- [1.0.1 - Unreleased](#101---unreleased)
+
+# 1.0.1 - Unreleased
+
+## Fixed
+- Edge cases where the open command could fail
+- Config and data directories now respect XDG_CONFIG_HOME and XDG_DATA_HOME environment variables
 
 # 1.0.0 - 2022-06-16
 

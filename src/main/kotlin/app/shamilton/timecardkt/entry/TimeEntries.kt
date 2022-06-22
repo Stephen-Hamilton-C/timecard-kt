@@ -11,7 +11,9 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.time.LocalDate
 import java.nio.file.Files
+import java.nio.file.InvalidPathException
 import java.nio.file.Path
+import java.nio.file.Paths
 
 @Serializable
 class TimeEntries(
@@ -21,7 +23,7 @@ class TimeEntries(
 
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: Path = _appDirs.getUserDataDir(App.NAME, "", App.AUTHOR)
+		val FILEPATH: Path = getFilePath()
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		private var _cached: TimeEntries? = null
@@ -40,6 +42,24 @@ class TimeEntries(
 				_cached = timeEntries
 			}
 			return timeEntries
+		}
+
+		private fun isValidPath(path: String?): Boolean {
+			if(path.isNullOrBlank()) return false
+			try {
+				Paths.get(path)
+			} catch(e: InvalidPathException) {
+				return false
+			}
+			return true
+		}
+
+		private fun getFilePath(): Path {
+			if(isValidPath(System.getenv("XDG_DATA_HOME"))){
+				val configHome = Paths.get(System.getenv("XDG_DATA_HOME"))
+				return Paths.get(configHome.toString(), App.NAME)
+			}
+			return _appDirs.getUserDataDir(App.NAME, "", App.AUTHOR)
 		}
 	}
 

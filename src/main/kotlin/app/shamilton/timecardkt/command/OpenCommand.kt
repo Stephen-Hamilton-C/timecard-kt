@@ -6,7 +6,6 @@ import app.shamilton.timecardkt.Color.cyan
 import app.shamilton.timecardkt.config.Configuration
 import app.shamilton.timecardkt.entry.TimeEntries
 import java.awt.Desktop
-import java.awt.HeadlessException
 import java.io.File
 import java.nio.file.Files
 
@@ -39,8 +38,8 @@ class OpenCommand : ICommand {
 		try {
 			val desktop = Desktop.getDesktop()
 			desktop.open(directory)
-		} catch(e: HeadlessException){
-			// If the user doesn't have a GUI, a HeadlessException will be thrown.
+		} catch(e: Exception){
+			// If for some reason we can't open the file manager GUI, just print out the location.
 			// In this case, we can just tell the user where the files are located.
 			println("${App.NAME} ${arg.lowercase()} files are located at ${cyan(directory.path)}")
 		}

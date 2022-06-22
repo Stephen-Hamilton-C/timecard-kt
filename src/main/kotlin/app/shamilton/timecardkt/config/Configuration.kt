@@ -12,7 +12,9 @@ import kotlinx.serialization.encodeToString
 import com.charleskorn.kaml.Yaml
 import java.io.File
 import java.nio.file.Files
+import java.nio.file.InvalidPathException
 import java.nio.file.Path
+import java.nio.file.Paths
 
 @Serializable
 class Configuration (
@@ -22,7 +24,7 @@ class Configuration (
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
-		val FILEPATH: Path = _appDirs.getUserConfigDir(App.NAME, "", App.AUTHOR)
+		val FILEPATH: Path = getFilePath()
 		const val FILENAME: String = "config.yml"
 
 		private var _cached: Configuration? = null
@@ -41,6 +43,24 @@ class Configuration (
 				_cached = configuration
 			}
 			return configuration
+		}
+
+		private fun isValidPath(path: String?): Boolean {
+			if(path.isNullOrBlank()) return false
+			try {
+				Paths.get(path)
+			} catch(e: InvalidPathException) {
+				return false
+			}
+			return true
+		}
+
+		private fun getFilePath(): Path {
+			if(isValidPath(System.getenv("XDG_CONFIG_HOME"))){
+				val configHome = Paths.get(System.getenv("XDG_CONFIG_HOME"))
+				return Paths.get(configHome.toString(), App.NAME)
+			}
+			return _appDirs.getUserConfigDir(App.NAME, "", App.AUTHOR)
 		}
 	}
 

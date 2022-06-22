@@ -1,0 +1,61 @@
+// Fat jar
+task snapPrepare(type: Jar) {
+	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
+	archiveFileName = "timecard-kt_fat.jar"
+	destinationDirectory = file("$rootDir/build/snap")
+	manifest {
+		attributes "Main-Class": "app.shamilton.timecardkt.AppKt"
+	}
+
+	from {
+		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+	}
+	with jar
+}
+
+tasks.create("snapBuild") {
+    // Don't need to depend on snapPrepare - snapcraft will clone this repo and run snapPrepare
+
+	// Delete old build artifacts
+	doFirst {
+		delete fileTree("deploy/snap") {
+			include "timecard-kt_*.snap"
+		}
+	}
+
+    doLast {
+        def craft = new File("deploy/snap/snapcraft.yaml")
+        def origCraft = new File("deploy/snap/snapcraft.yaml.orig")
+        origCraft.write(craft.text)
+        exec {
+			workingDir rootProject.file("deploy/snap")
+			commandLine "python", "snap.py"
+        }
+        exec {
+			workingDir rootProject.file("deploy/snap")
+			commandLine "bash", "-c", "snapcraft"
+        }
+        craft.delete()
+        craft.write(origCraft.text)
+        origCraft.delete()
+    }
+}
+
+tasks.create("snapDeploy") {
+    dependsOn("snapBuild")
+    doLast {
+		// Determine channel
+		def stdout = new ByteArrayOutputStream()
+		exec {
+			commandLine "git", "log", "-n 1", "--pretty=%d", "HEAD"
+			standardOutput = stdout
+		}
+		var isRelease = stdout.toString().trim().contains("main")
+		var channel = isRelease ? "stable" : "edge"
+		// Deploy to Snapcraft store
+        exec {
+			workingDir rootProject.file("deploy/snap")
+			commandLine "bash", "-c", "snapcraft upload --release="+channel+" timecard-kt_*.snap"
+        }
+    }
+}

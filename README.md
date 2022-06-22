@@ -5,14 +5,19 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
 - [timecard-kt](#timecard-kt)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
+    - [Linux Snap (Any distro)](#linux-snap-any-distro)
     - [Ubuntu](#ubuntu)
     - [Windows](#windows)
   - [Install from Source](#install-from-source)
     - [Any Platform](#any-platform)
+    - [Linux Snap](#linux-snap)
     - [Ubuntu/Debian](#ubuntudebian)
     - [Windows](#windows-1)
 
 ## Installation
+
+### Linux Snap (Any distro)
+1. Run `snap install timecard-kt`
 
 ### Ubuntu
 1. Add my launchpad repo: `sudo add-apt-repository ppa:stephen-hamilton-c/ppa`
@@ -49,6 +54,11 @@ For example, for manually installing only for the user on Linux:
             └─ *.jar files...
    
 ```
+
+### Linux Snap
+1. Run `./gradlew snapBuild`
+2. Run `snap install ./deploy/snap/timecard-kt_*.snap`
+3. Run `timecard-kt help` to get started
 
 ### Ubuntu/Debian
 1. Run `./gradlew debianBuild`
