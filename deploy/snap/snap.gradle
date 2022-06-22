@@ -1,11 +1,5 @@
-import java.nio.file.Paths
-
 tasks.create("snapPrepare") {
     dependsOn("fatJar")
-    // Delete duplicate jar so it won't get packaged
-    doLast {
-        delete(Paths.get("build", "libs", "timecard-kt.jar"))
-    }
 }
 
 tasks.create("snapBuild") {
