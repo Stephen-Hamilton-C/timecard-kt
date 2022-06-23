@@ -1,5 +1,5 @@
 # timecard-kt
-Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timecard-py) Python script to Kotlin. I wanted to get some practical experience with the language and even attempt to get this properly packaged for Linux.
+Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timecard-py) Python script to Kotlin. I wanted to get some practical experience with the language and get this properly packaged.
 
 ## Table of Contents
 - [timecard-kt](#timecard-kt)
@@ -13,6 +13,7 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
     - [Linux Snap](#linux-snap)
     - [Ubuntu/Debian](#ubuntudebian)
     - [Windows](#windows-1)
+  - [Credits](#credits)
 
 ## Installation
 
@@ -71,3 +72,7 @@ For example, for manually installing only for the user on Linux:
 3. [Add the folder to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
 4. Open a Command Prompt or Windows Powershell
 5. Run `timecard-kt.exe help`
+
+## Credits
+
+See [CREDITS.md](https://github.com/Stephen-Hamilton-C/timecard-kt/blob/main/CREDITS.md)
