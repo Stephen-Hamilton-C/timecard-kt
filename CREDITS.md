@@ -1,4 +1,3 @@
-<!-- TODO: Make python script to convert this into Debian copyright file -->
 # timecard-kt
 Written by Stephen-Hamilton-C.  
 https://github.com/Stephen-Hamilton-C/timecard-kt
