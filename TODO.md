@@ -6,7 +6,7 @@
   - [ ] W: timecard-kt source: debhelper-but-no-misc-depends timecard-kt
   - [x] W: timecard-kt source: no-newline-at-end debian/rules
 
-- [ ] version.py should also set the VERSION constant in App.kt
+- [x] version.py should also set the VERSION constant in App.kt
 
 
 

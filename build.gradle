@@ -14,11 +14,19 @@ plugins {
 	id "org.jetbrains.kotlin.plugin.serialization" version "1.7.0"
 
 	// Apply the application plugin to add support for building a CLI application in Java.
-	id 'application'
+	id "application"
 
 	// Windows EXE build
 	// https://github.com/TheBoegl/gradle-launch4j
 	id "edu.sc.seis.launch4j" version "2.5.3"
+}
+
+allprojects {
+	afterEvaluate {
+		exec {
+			commandLine "python", "version.py"
+		}
+	}
 }
 
 repositories {
