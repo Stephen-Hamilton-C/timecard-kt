@@ -4,7 +4,10 @@
 - [ ] Resolve lintian warnings:
   - [ ] W: timecard-kt source: ancient-standards-version 3.9.4 (released 2012-09-19) (current is 4.5.0)
   - [ ] W: timecard-kt source: debhelper-but-no-misc-depends timecard-kt
-  - [ ] W: timecard-kt source: no-newline-at-end debian/rules
+  - [x] W: timecard-kt source: no-newline-at-end debian/rules
+
+- [ ] version.py should also set the VERSION constant in App.kt
+
 
 
 # Packaging
