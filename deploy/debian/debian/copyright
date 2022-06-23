@@ -26,3 +26,8 @@ gradle-launch4j
 Gradle plugin for launch4j.
 Used to create Windows executable.
 https://github.com/TheBoegl/gradle-launch4j
+
+MaterialDesignIcons-Picker
+Material icon picker for Firefox and Chromium-based browsers.
+Used to create icon
+https://github.com/Pictogrammers/MaterialDesignIcons-Picker
