@@ -3,7 +3,7 @@ Maintainer: Stephen Hamilton <stephen.hamilton.c@gmail.com>
 Section: utils
 Priority: optional
 Build-Depends: debhelper (>= 9)
-Standards-Version: 3.9.4
+Standards-Version: 4.5.0
 Homepage: https://github.com/Stephen-Hamilton-C/timecard-kt
 
 Package: timecard-kt

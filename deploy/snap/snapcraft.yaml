@@ -1,0 +1,36 @@
+name: timecard-kt
+# Version gets set by snap.py
+version: '0'
+source-code: https://github.com/Stephen-Hamilton-C/timecard-kt
+license: GPL-3.0
+icon: "../../icon/icon-white.png"
+summary: Simple commandline time tracking program, written in Kotlin
+description: |
+  timecard-kt is a command line time tracking program
+  written by a developer, for developers.
+  Quick syntax allows time tracking to be easy, while also being customizable.
+  Supports quarter-hour rounding, 24-hour time, and automatic cleanup.
+  Configuration file is stored as a simple human readable YAML file.
+  Data files are stored as simple JSON files that are developer readable.
+base: core18
+apps:
+  timecard-kt:
+    command: java -jar -Djava.awt.headless=true $SNAP/jar/timecard-kt_fat.jar
+    environment:
+      XDG_CONFIG_HOME: "$SNAP_USER_DATA/"
+      XDG_DATA_HOME: "$SNAP_USER_COMMON/"
+parts:
+  timecard-kt:
+    plugin: gradle
+    gradle-options: [snapPrepare]
+    gradle-output-dir: build/snap
+    source: https://github.com/Stephen-Hamilton-C/timecard-kt.git
+    # Set by snap.py
+    #source-tag: v$SNAPCRAFT_PROJECT_VERSION
+    #source-branch: <branch>
+    override-prime: |
+      snapcraftctl prime
+      rm -vf usr/lib/jvm/java-*-openjdk-*/lib/security/blacklisted.certs
+    stage-packages:
+      - default-jre-headless
+confinement: strict

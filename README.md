@@ -1,23 +1,26 @@
 # timecard-kt
-Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timecard-py) Python script to Kotlin. I wanted to get some practical experience with the language and even attempt to get this properly packaged for Linux.
+Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timecard-py) Python script to Kotlin. I wanted to get some practical experience with the language and get this properly packaged.
 
 ## Table of Contents
 - [timecard-kt](#timecard-kt)
   - [Table of Contents](#table-of-contents)
   - [Installation](#installation)
+    - [Linux Snap (Any distro)](#linux-snap-any-distro)
     - [Ubuntu](#ubuntu)
     - [Windows](#windows)
   - [Install from Source](#install-from-source)
     - [Any Platform](#any-platform)
+    - [Linux Snap](#linux-snap)
     - [Ubuntu/Debian](#ubuntudebian)
     - [Windows](#windows-1)
       - [Installer](#installer)
       - [Manual](#manual)
-  - [Files](#files)
-    - [Windows](#windows-2)
-    - [Linux](#linux)
+  - [Credits](#credits)
 
 ## Installation
+
+### Linux Snap (Any distro)
+1. Run `snap install timecard-kt`
 
 ### Ubuntu
 1. Add my launchpad repo: `sudo add-apt-repository ppa:stephen-hamilton-c/ppa`
@@ -52,6 +55,11 @@ For example, for manually installing only for the user on Linux:
    
 ```
 
+### Linux Snap
+1. Run `./gradlew snapBuild`
+2. Run `snap install ./deploy/snap/timecard-kt_*.snap`
+3. Run `timecard-kt help` to get started
+
 ### Ubuntu/Debian
 1. Run `./gradlew debianBuild`
 2. Run `sudo apt install ./build/debian/timecard-kt*.deb`
@@ -65,14 +73,11 @@ For example, for manually installing only for the user on Linux:
 
 #### Manual
 1. Run `.\gradlew.bat createExe`
-2. Find the executable and `lib` folder in `.\build\launch4j`
+2. Move the exe and lib file in `.\build\launch4j\` to your desired location (like your User folder for example)
+3. [Add the folder to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)
+4. Open a Command Prompt or Windows Powershell
+5. Run `timecard-kt.exe help`
 
-## Files
+## Credits
 
-### Windows
-- Timecard logs and `config.yml` are found in `%LocalAppData%\stephen-hamilton-c\timecard-kt\`
-
-### Linux
-<!-- TODO: Need to confirm this -->
-- Timecard logs are found in `~/.local/share/timecard-kt/`
-- `config.yml` is found in `~/.config/timecard-kt/`
+See [CREDITS.md](https://github.com/Stephen-Hamilton-C/timecard-kt/blob/main/CREDITS.md)
