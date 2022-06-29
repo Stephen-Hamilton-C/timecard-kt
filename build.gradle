@@ -81,9 +81,6 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 	}
 }
 
-// Debian packaging tasks
-apply(from = "./deploy/debian/debian.gradle")
-
 //#region Windows
 // Create Windows EXE build
 launch4j {
@@ -91,19 +88,32 @@ launch4j {
 	outfile = "timecard-kt.exe"
 	mainClassName = "app.shamilton.timecardkt.AppKt"
 	productName = "timecard-kt"
+	icon = "${projectDir}/icon/icon.ico"
+	fileDescription = "Simple commandline time tracking program, written in Kotlin"
 }
 
 // Ensure exe exists
+tasks.create("prepareInstaller") {
+	dependsOn "createExe"
+
+	doLast {
+		exec {
+			workingDir rootProject.file("deploy/windows")
+			commandLine "python", "windows.py"
+		}
+	}
+}
+
 tasks {
 	createInstaller {
-		dependsOn("createExe")
+		dependsOn "prepareInstaller"
 	}
 }
 
 // Create Windows installer
 nsis {
-	configuration.set(file("${rootProject.projectDir}/deploy/windows/nsis.nsi"))
-	runIn.set(file(rootProject.projectDir))
+	configuration = file("${rootProject.projectDir}/deploy/windows/nsis.nsi")
+	runIn = file(rootProject.projectDir)
 }
 //#endregion
 

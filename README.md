@@ -29,15 +29,18 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
 3. Run `sudo apt install timecard-kt`
 
 ### Windows
+*Note: Only Windows 10 has been tested. Theoretically, older 64-bit versions of Windows should work, but they are not supported.* 
 1. Download the Windows installer from [releases](https://github.com/Stephen-Hamilton-C/timecard-kt/releases/latest).
 2. Run the installer.
 
 ## Install from Source
 
+0. Download and install [Python 3](https://www.python.org/downloads/)
+
 ### Any Platform 
 1. Run `./gradlew build`
 2. Unzip the archive in `./build/distributions/`
-3. Use `timecard-kt` for Linux or MacOS and `timecard-kt.bat` for Windows.
+3. Use `timecard-kt` for Linux or macOS and `timecard-kt.bat` for Windows.
 
 Executables are found in `bin`. Make sure that the `lib` folder remains on the same level as the folder containing the executable.
 
