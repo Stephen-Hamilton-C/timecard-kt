@@ -13,6 +13,8 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
     - [Linux Snap](#linux-snap)
     - [Ubuntu/Debian](#ubuntudebian)
     - [Windows](#windows-1)
+      - [Installer](#installer)
+      - [Manual](#manual)
   - [Credits](#credits)
 
 ## Installation
@@ -27,18 +29,18 @@ Basically a port of my [timecard-py](https://github.com/Stephen-Hamilton-C/timec
 3. Run `sudo apt install timecard-kt`
 
 ### Windows
-1. Download the Windows zip folder from [releases](https://github.com/Stephen-Hamilton-C/timecard-kt/releases/latest).
-2. Right click the zip folder and click Extract All.
-3. Move `lib` and `timecard-kt.exe` to desired location. (Like `C:\Program Files\timecard-kt`)
-4. Add parent folder to your PATH
-*Installer coming soon*
+*Note: Only Windows 10 has been tested. Theoretically, older 64-bit versions of Windows should work, but they are not supported.* 
+1. Download the Windows installer from [releases](https://github.com/Stephen-Hamilton-C/timecard-kt/releases/latest).
+2. Run the installer.
 
 ## Install from Source
+
+0. Download and install [Python 3](https://www.python.org/downloads/)
 
 ### Any Platform 
 1. Run `./gradlew build`
 2. Unzip the archive in `./build/distributions/`
-3. Use `timecard-kt` for Linux or MacOS and `timecard-kt.bat` for Windows.
+3. Use `timecard-kt` for Linux or macOS and `timecard-kt.bat` for Windows.
 
 Executables are found in `bin`. Make sure that the `lib` folder remains on the same level as the folder containing the executable.
 
@@ -67,6 +69,12 @@ For example, for manually installing only for the user on Linux:
 3. Run `timecard-kt help` to get started
 
 ### Windows
+
+#### Installer
+1. Run `.\gradlew.bat createInstaller`
+2. Run the installer in `.\build\distributions\`
+
+#### Manual
 1. Run `.\gradlew.bat createExe`
 2. Move the exe and lib file in `.\build\launch4j\` to your desired location (like your User folder for example)
 3. [Add the folder to your PATH](https://www.architectryan.com/2018/03/17/add-to-the-path-on-windows-10/)

@@ -24,6 +24,11 @@ Gradle plugin for launch4j.
 Used to create Windows executable.  
 https://github.com/TheBoegl/gradle-launch4j
 
+## PathEd
+NSIS Path helper.  
+Used to add/remove timecard-kt to the Windows PATH.  
+https://github.com/awaescher/PathEd
+
 ## MaterialDesignIcons-Picker
 Material icon picker for Firefox and Chromium-based browsers.  
 Used to create icon.  
