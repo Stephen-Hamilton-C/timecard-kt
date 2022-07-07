@@ -40,6 +40,7 @@ Section "${APP_NAME}" SecInstall
     FILE "build\launch4j\lib\*"
 SectionEnd
 Section "Add to PATH" SecPath
+    SetOutPath "$INSTDIR"
     FILE "deploy\windows\PathEd.exe"
     ExecWait '$INSTDIR\PathEd.exe add "$INSTDIR"'
 SectionEnd
