@@ -1,6 +1,11 @@
-package app.shamilton.timecardkt.config.cleaninterval
+package app.shamilton.timecardkt.config
 
-import app.shamilton.timecardkt.config.Config
+enum class CleanInterval(val days: Int) {
+	MANUALLY(1),
+	DAILY(1),
+	WEEKLY(7),
+	MONTHLY(30),
+}
 
 class CleanIntervalConfig : Config() {
 
