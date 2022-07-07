@@ -5,5 +5,6 @@ object ConfigList {
 		CleanIntervalConfig(),
 		TimeFormatConfig(),
 		Hour24Config(),
+		ColorConfig(),
 	)
 }
