@@ -37,7 +37,7 @@ tasks.create("debianPrepare") {
 	doFirst {
 		exec {
 			workingDir rootProject.file("deploy/debian")
-			commandLine "python", "changelog.py", debianVersion
+			commandLine "python", "debian.py", debianVersion
 		}
 	}
 

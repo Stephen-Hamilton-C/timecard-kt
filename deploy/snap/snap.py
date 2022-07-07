@@ -12,7 +12,7 @@ ROOT_PROJECT_PATH = os.getcwd()
 # Now we are at rootProject directory. Let's do this.
 
 sys.path.append("deploy")
-from version import getVersion
+from version_retriever import getVersion
 
 VERSION = getVersion()
 

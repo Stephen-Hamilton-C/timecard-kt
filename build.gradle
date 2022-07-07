@@ -14,11 +14,23 @@ plugins {
 	id "org.jetbrains.kotlin.plugin.serialization" version "1.7.0"
 
 	// Apply the application plugin to add support for building a CLI application in Java.
-	id 'application'
+	id "application"
 
-	// Windows EXE build
+	// Build Windows EXE
 	// https://github.com/TheBoegl/gradle-launch4j
 	id "edu.sc.seis.launch4j" version "2.5.3"
+
+	// NSIS Windows Installer creator
+	// https://github.com/langmo/gradle-nsis
+	id("com.github.langmo.gradlensis") version "0.1.0"
+}
+
+allprojects {
+	afterEvaluate {
+		exec {
+			commandLine "python", "version.py"
+		}
+	}
 }
 
 repositories {
@@ -69,13 +81,41 @@ tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
 	}
 }
 
+//#region Windows
 // Create Windows EXE build
 launch4j {
 	headerType = "console"
 	outfile = "timecard-kt.exe"
 	mainClassName = "app.shamilton.timecardkt.AppKt"
 	productName = "timecard-kt"
+	icon = "${projectDir}/icon/icon.ico"
+	fileDescription = "Simple commandline time tracking program, written in Kotlin"
 }
+
+// Ensure exe exists
+tasks.create("prepareInstaller") {
+	dependsOn "createExe"
+
+	doLast {
+		exec {
+			workingDir rootProject.file("deploy/windows")
+			commandLine "python", "windows.py"
+		}
+	}
+}
+
+tasks {
+	createInstaller {
+		dependsOn "prepareInstaller"
+	}
+}
+
+// Create Windows installer
+nsis {
+	configuration = file("${rootProject.projectDir}/deploy/windows/nsis.nsi")
+	runIn = file(rootProject.projectDir)
+}
+//#endregion
 
 // Debian packaging tasks
 apply from: "./deploy/debian/debian.gradle"
