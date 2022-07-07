@@ -10,7 +10,7 @@ import app.shamilton.timecardkt.command.ICommand
 object App {
 
 	const val NAME = "timecard-kt"
-	const val VERSION = "1.0.1"
+	const val VERSION = "1.1.0"
 	const val AUTHOR = "stephen-hamilton-c"
 
 	private var _argsInitialized: Boolean = false
