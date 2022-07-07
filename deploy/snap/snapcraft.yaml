@@ -35,4 +35,5 @@ parts:
       - default-jre-headless
     build-packages:
       - python3
+      - python-is-python3
 confinement: strict
