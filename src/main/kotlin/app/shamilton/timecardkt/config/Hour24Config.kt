@@ -1,6 +1,11 @@
-package app.shamilton.timecardkt.config.hour24
+package app.shamilton.timecardkt.config
 
-import app.shamilton.timecardkt.config.Config
+import java.time.format.DateTimeFormatter
+
+enum class Hour24(val formatter: DateTimeFormatter) {
+	TRUE(DateTimeFormatter.ofPattern("HH:mm")),
+	FALSE(DateTimeFormatter.ofPattern("h:mm a")),
+}
 
 class Hour24Config : Config() {
 

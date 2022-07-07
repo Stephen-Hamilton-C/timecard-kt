@@ -1,19 +1,23 @@
 package app.shamilton.timecardkt
 
+import app.shamilton.timecardkt.config.Configuration
+
 @Suppress("unused")
 object Color {
 
+	private val _config = Configuration.loadFromFile()
+
 	// Color code strings from
 	// http://www.topmudsites.com/forums/mud-coding/413-java-ansi.html
-	const val BLACK: String = "\u001B[30m"
-	const val RED: String = "\u001B[31m"
-	const val GREEN: String = "\u001B[32m"
-	const val YELLOW: String = "\u001B[33m"
-	const val BLUE: String = "\u001B[34m"
-	const val MAGENTA: String = "\u001B[35m"
-	const val CYAN: String = "\u001B[36m"
-	const val WHITE: String = "\u001B[37m"
-	const val RESET: String = "\u001B[0m"
+	@JvmStatic val BLACK: String = if(_config.color) { "\u001B[30m" } else { "" }
+	@JvmStatic val RED: String = if(_config.color) { "\u001B[31m" } else { "" }
+	@JvmStatic val GREEN: String = if(_config.color) { "\u001B[32m" } else { "" }
+	@JvmStatic val YELLOW: String = if(_config.color) { "\u001B[33m" } else { "" }
+	@JvmStatic val BLUE: String = if(_config.color) { "\u001B[34m" } else { "" }
+	@JvmStatic val MAGENTA: String = if(_config.color) { "\u001B[35m" } else { "" }
+	@JvmStatic val CYAN: String = if(_config.color) { "\u001B[36m" } else { "" }
+	@JvmStatic val WHITE: String = if(_config.color) { "\u001B[37m" } else { "" }
+	@JvmStatic val RESET: String = if(_config.color) { "\u001B[0m" } else { "" }
 
 	@JvmStatic fun black(string: Any?) = colorize(BLACK, string)
 	@JvmStatic fun red(string: Any?) = colorize(RED, string)

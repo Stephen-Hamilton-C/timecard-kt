@@ -1,9 +1,6 @@
 package app.shamilton.timecardkt.config
 
 import app.shamilton.timecardkt.App
-import app.shamilton.timecardkt.config.cleaninterval.CleanInterval
-import app.shamilton.timecardkt.config.hour24.Hour24
-import app.shamilton.timecardkt.config.timeformat.TimeFormat
 import io.github.erayerdin.kappdirs.AppDirsFactory
 import io.github.erayerdin.kappdirs.appdirs.AppDirs
 import kotlinx.serialization.Serializable
@@ -21,6 +18,8 @@ class Configuration (
 	var clean_interval: CleanInterval = CleanInterval.WEEKLY,
 	var time_format: TimeFormat = TimeFormat.WRITTEN,
 	var hour_24: Hour24 = Hour24.FALSE,
+	// Default to false on Windows because command prompt is poopy >:|
+	var color: Boolean = !System.getProperty("os.name").contains("Windows"),
 ) {
 	companion object {
 		private val _appDirs: AppDirs = AppDirsFactory.getInstance()
