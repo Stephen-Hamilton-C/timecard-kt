@@ -16,7 +16,8 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 - Color config. Turns text colors on or off. Defaults to off on Windows.
 
 ## Changed
-- Config command feedback to be helpful
+- Config command feedback to be helpful.
+- "Unknown command" message is now colored like most error messages.
 
 # 1.0.1 - 2022-06-22
 
