@@ -6,11 +6,12 @@ package app.shamilton.timecardkt
 import app.shamilton.timecardkt.command.CommandList
 import app.shamilton.timecardkt.command.IAutoCommand
 import app.shamilton.timecardkt.command.ICommand
+import app.shamilton.timecardkt.Color.yellow
 
 object App {
 
 	const val NAME = "timecard-kt"
-	const val VERSION = "1.0.1"
+	const val VERSION = "1.1.0"
 	const val AUTHOR = "stephen-hamilton-c"
 
 	private var _argsInitialized: Boolean = false
@@ -36,7 +37,7 @@ fun main(args: Array<String>) {
 	App.setArgs(args)
 	val commandName: String = App.getArg(0) ?: "STATUS"
 	val foundCommand: ICommand? = CommandList.COMMANDS.find { it.m_Name == commandName }
-	foundCommand?.execute() ?: println("Unknown command. Use '${App.NAME} help' for a list of commands.")
+	foundCommand?.execute() ?: println(yellow("Unknown command. Use '${App.NAME} help' for a list of commands."))
 
 	// Run AutoCommands
 	for (command: ICommand in CommandList.COMMANDS) {

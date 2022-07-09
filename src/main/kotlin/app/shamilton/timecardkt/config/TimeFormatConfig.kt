@@ -1,7 +1,11 @@
-package app.shamilton.timecardkt.config.timeformat
+package app.shamilton.timecardkt.config
 
-import app.shamilton.timecardkt.config.Config
-
+enum class TimeFormat {
+	ISO, //17:31
+	QUARTER_HOUR, //17.5 hours
+	WRITTEN, // 17 hours and 31 minutes
+	WRITTEN_SHORT, // 17 hrs, 31 min
+}
 class TimeFormatConfig : Config() {
 
 	override val m_Name: String = "TIME_FORMAT"

@@ -1,13 +1,6 @@
 - [ ] Config file should save on exit if it doesn't exist
 - [ ] Add comments to config file
-
-- [ ] Resolve lintian warnings:
-  - [x] W: timecard-kt source: ancient-standards-version 3.9.4 (released 2012-09-19) (current is 4.5.0)
-  - [x] W: timecard-kt source: debhelper-but-no-misc-depends timecard-kt
-  - [x] W: timecard-kt source: no-newline-at-end debian/rules
-
-- [x] version.py should also set the VERSION constant in App.kt
-
+- [ ] Ensure users can enter in 12 hour time for clock in/out
 
 
 # Packaging

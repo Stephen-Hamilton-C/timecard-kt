@@ -3,7 +3,7 @@ name: timecard-kt
 version: '0'
 source-code: https://github.com/Stephen-Hamilton-C/timecard-kt
 license: GPL-3.0
-icon: "../../icon/icon-white.png"
+icon: "icon.png"
 summary: Simple commandline time tracking program, written in Kotlin
 description: |
   timecard-kt is a command line time tracking program
@@ -33,4 +33,7 @@ parts:
       rm -vf usr/lib/jvm/java-*-openjdk-*/lib/security/blacklisted.certs
     stage-packages:
       - default-jre-headless
+    build-packages:
+      - python3
+      - python-is-python3
 confinement: strict

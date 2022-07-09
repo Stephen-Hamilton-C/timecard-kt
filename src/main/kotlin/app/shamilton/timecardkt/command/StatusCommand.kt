@@ -6,7 +6,7 @@ import app.shamilton.timecardkt.Color.RED
 import app.shamilton.timecardkt.Color.colorize
 import app.shamilton.timecardkt.Color.yellow
 import app.shamilton.timecardkt.config.Configuration
-import app.shamilton.timecardkt.config.timeformat.TimeFormat
+import app.shamilton.timecardkt.config.TimeFormat
 import app.shamilton.timecardkt.entry.TimeEntries
 import app.shamilton.timecardkt.entry.TimeEntry
 import java.time.LocalTime
