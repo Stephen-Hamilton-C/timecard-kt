@@ -6,11 +6,11 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # Versions <!-- omit in toc -->
 
-- [1.1.0 - 2022-07-08](#110---2022-07-08)
+- [1.1.0 - 2022-07-09](#110---2022-07-09)
 - [1.0.1 - 2022-06-22](#101---2022-06-22)
 - [1.0.0 - 2022-06-16](#100---2022-06-16)
 
-# 1.1.0 - 2022-07-08
+# 1.1.0 - 2022-07-09
 
 ## Added
 - Color config. Turns text colors on or off. Defaults to off on Windows.
