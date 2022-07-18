@@ -1,4 +1,11 @@
+# 1.1.0 - 2022-07-08
 
+## Added
+- Color config. Turns text colors on or off. Defaults to off on Windows.
+
+## Changed
+- Config command feedback to be helpful.
+- "Unknown command" message is now colored like most error messages.
 
 # Installation Instructions
 ## Linux
