@@ -7,6 +7,7 @@ import app.shamilton.timecardkt.entry.TimeEntries
 import java.io.File
 import java.time.LocalDate
 import java.time.Period
+import java.time.format.DateTimeParseException
 
 class CleanCommand : IAutoCommand {
 
@@ -38,12 +39,17 @@ class CleanCommand : IAutoCommand {
 		} ?: arrayOf()
 
 		for (timecardFile in timecardFiles) {
-			val timecardDateString: String = timecardFile.nameWithoutExtension.substring(9)
-			val timecardDate = LocalDate.parse(timecardDateString)
-			val difference = Period.between(timecardDate, today)
-			if (difference.days >= config.clean_interval.days) {
-				println(cyan("Removed old timecard for $timecardDateString"))
-				timecardFile.delete()
+			try {
+				val timecardDateString: String = timecardFile.nameWithoutExtension.substring(9)
+				val timecardDate = LocalDate.parse(timecardDateString)
+				val difference = Period.between(timecardDate, today)
+				if (difference.days >= config.clean_interval.days) {
+					println(cyan("Removed old timecard for $timecardDateString"))
+					timecardFile.delete()
+				}
+			} catch (e: DateTimeParseException) {
+				// Likely not a timecard file
+				continue
 			}
 		}
 
