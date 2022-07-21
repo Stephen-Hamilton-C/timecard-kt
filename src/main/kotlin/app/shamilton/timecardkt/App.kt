@@ -25,6 +25,22 @@ object App {
 		return if(_args.size > index) _args[index].uppercase() else null
 	}
 
+	/**
+	 * Gets all args from the provided starting index to the end of the args entered by the user.
+	 * 0 is the name of the ICommand
+	 */
+	fun getArgs(startIndex: Int): List<String>? {
+		return if(_args.size > startIndex) {
+			val args = mutableListOf<String>()
+			for(i in startIndex until _args.size) {
+				args.add(_args[i].uppercase())
+			}
+			args
+		} else {
+			null
+		}
+	}
+
 	fun setArgs(args: Array<String>) {
 		if(_argsInitialized) throw IllegalStateException("App._args has already been initialized! App.setArgs(args) should only be called by main.")
 		_args = args.asList()

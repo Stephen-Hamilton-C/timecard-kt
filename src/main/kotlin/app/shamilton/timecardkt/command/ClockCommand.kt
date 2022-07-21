@@ -19,7 +19,7 @@ abstract class ClockCommand : ICommand {
 		return if(arg == null) {
 			now()
 		} else if(arg.contains(":")) {
-			getTimeFromInput(arg)
+			getTimeFromInput(App.getArgs(1)!!.joinToString(" "))
 		} else {
 			getTimeFromOffset(arg)
 		}
