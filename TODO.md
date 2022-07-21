@@ -1,5 +1,6 @@
 - [ ] Config file should save on exit if it doesn't exist
-- [ ] Ensure users can enter in 12 hour time for clock in/out
+- [x] Ensure users can enter in 12 hour time for clock in/out
+- [ ] Remove getArgs() and add arg to ClockCommand for AM/PM input
 - [ ] Add viewing status of previous days (add arg to StatusCommand)
 
 
