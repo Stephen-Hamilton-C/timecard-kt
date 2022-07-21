@@ -6,9 +6,18 @@ timecard-kt uses [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 # Versions <!-- omit in toc -->
 
+- [1.2.0 - Unreleased](#120---unreleased)
 - [1.1.0 - 2022-07-08](#110---2022-07-08)
 - [1.0.1 - 2022-06-22](#101---2022-06-22)
 - [1.0.0 - 2022-06-16](#100---2022-06-16)
+
+# 1.2.0 - Unreleased
+
+## Added
+- 12 hour input (e.g. can clock out at 17:31 by running `timecard-kt out 5:31 PM`)
+
+## Fixed
+- Crash if unexpected files were in the data directory
 
 # 1.1.0 - 2022-07-08
 
