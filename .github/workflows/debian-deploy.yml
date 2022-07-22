@@ -9,9 +9,7 @@ name: Deploy Debian Package
 
 on:
   push:
-    tags:
-      - 'v*.*.*' # Release
-    branches: [ dev ] # Snapshot
+    branches: [ "main", "dev" ]
 
 permissions:
   contents: read
