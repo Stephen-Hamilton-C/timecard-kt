@@ -38,10 +38,10 @@ jobs:
     - name: Set up Snapcraft
       uses: samuelmeuli/action-snapcraft@v1
       with:
-        use_lxd: true
         snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
+      # This will likely not work as Snap will continuously work to be the bane of my life
     - name: Build & Deploy Snap Package
       uses: gradle/gradle-build-action@v2
       with:
-        arguments: snapDeployLXD
+        arguments: snapDeploy
       
