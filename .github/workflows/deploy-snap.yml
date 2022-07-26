@@ -37,6 +37,7 @@ jobs:
         python-version: "3.10"
     - name: Run snap.py
       run: |
+        python version.py
         python deploy/snap/snap.py
     - uses: snapcore/action-build@v1
       id: snapbuild
