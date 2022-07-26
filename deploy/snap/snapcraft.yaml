@@ -31,9 +31,11 @@ parts:
     override-prime: |
       snapcraftctl prime
       rm -vf usr/lib/jvm/java-*-openjdk-*/lib/security/blacklisted.certs
+    override-build: |
+      sudo ln -s /usr/bin/python3 /usr/bin/python
+      snapcraftctl build
     stage-packages:
       - default-jre-headless
     build-packages:
       - python3
-      - python-is-python3
 confinement: strict
