@@ -35,17 +35,17 @@ jobs:
       uses: actions/setup-python@v3
       with:
         python-version: "3.10"
-    - name: Set up Snapcraft
-      uses: samuelmeuli/action-snapcraft@v1
-      with:
-        snapcraft_token: ${{ secrets.SNAPCRAFT_TOKEN }}
-        
-      # This will likely not work as Snap will continuously work to be the bane of my life
-    - name: Setup Multipass
+    - name: Run snap.py
       run: |
-        sudo snap install multipass
-    - name: Build & Deploy Snap Package
-      uses: gradle/gradle-build-action@v2
+        python deploy/snap/snap.py
+    - uses: snapcore/action-build@v1
+      id: snapbuild
       with:
-        arguments: snapDeploy
+        path: deploy/snap
+    - uses: snapcore/action-publish@v1
+      env:
+        SNAPCRAFT_STORE_CREDENTIALS: ${{ secrets.SNAPCRAFT_TOKEN }}
+      with:
+        snap: ${{ steps.snapbuild.outputs.snap }}
+        release: edge
       
