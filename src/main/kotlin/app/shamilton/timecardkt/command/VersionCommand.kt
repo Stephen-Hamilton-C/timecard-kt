@@ -1,6 +1,7 @@
 package app.shamilton.timecardkt.command
 
 import app.shamilton.timecardkt.App
+import app.shamilton.timecardkt.VERSION
 
 class VersionCommand : ICommand {
 
@@ -10,7 +11,7 @@ class VersionCommand : ICommand {
 	override val m_HelpArgs: List<String> = listOf()
 
 	override fun execute() {
-		println("${App.NAME} version ${App.VERSION}")
+		println("${App.NAME} version $VERSION")
 	}
 
 }

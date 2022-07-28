@@ -11,7 +11,6 @@ import app.shamilton.timecardkt.Color.yellow
 object App {
 
 	const val NAME = "timecard-kt"
-	const val VERSION = "1.2.0"
 	const val AUTHOR = "stephen-hamilton-c"
 
 	private var _argsInitialized: Boolean = false
