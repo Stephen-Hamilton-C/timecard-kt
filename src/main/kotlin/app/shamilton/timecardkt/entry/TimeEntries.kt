@@ -28,6 +28,20 @@ class TimeEntries(
 
 		private var _cached: TimeEntries? = null
 
+		/**
+		 * Loads a timecard from a specified amount of days before `now`.
+		 * Returns null if file does not exist.
+		 */
+		@JvmStatic fun loadFromFile(days: Long): TimeEntries? {
+			val fileName = "timecard_${LocalDate.now().minusDays(days)}.json"
+			val path = FILEPATH.resolve(fileName)
+			return if(path.toFile().exists()) {
+				loadFromFile(FILEPATH.resolve(fileName))
+			} else {
+				null
+			}
+		}
+
 		@JvmStatic fun loadFromFile(path: Path = FILEPATH.resolve(FILENAME)): TimeEntries {
 			if(_cached != null && path == FILEPATH.resolve(FILENAME)) return _cached as TimeEntries
 
