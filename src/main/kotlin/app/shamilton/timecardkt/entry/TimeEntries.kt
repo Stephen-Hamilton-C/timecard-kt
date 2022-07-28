@@ -14,7 +14,6 @@ import java.nio.file.Files
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
 import java.nio.file.Paths
-import kotlin.io.path.exists
 
 @Serializable
 class TimeEntries(
@@ -36,7 +35,7 @@ class TimeEntries(
 		@JvmStatic fun loadFromFile(days: Long): TimeEntries? {
 			val fileName = "timecard_${LocalDate.now().minusDays(days)}.json"
 			val path = FILEPATH.resolve(fileName)
-			return if(path.exists()) {
+			return if(path.toFile().exists()) {
 				loadFromFile(FILEPATH.resolve(fileName))
 			} else {
 				null
