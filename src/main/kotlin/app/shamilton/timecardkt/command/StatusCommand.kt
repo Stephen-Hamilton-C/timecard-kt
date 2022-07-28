@@ -9,16 +9,18 @@ import app.shamilton.timecardkt.config.Configuration
 import app.shamilton.timecardkt.config.TimeFormat
 import app.shamilton.timecardkt.entry.TimeEntries
 import app.shamilton.timecardkt.entry.TimeEntry
+import java.time.LocalDate
 import java.time.LocalTime
 import java.time.temporal.ChronoUnit
+import kotlin.math.abs
 import kotlin.math.roundToInt
 
 class StatusCommand : ICommand {
 
 	override val m_Name: String = "STATUS"
-	override val m_Help: String = "Displays whether you're currently clocked in or not and how long you've been working today."
+	override val m_Help: String = "Displays whether you're currently clocked in or not and how long you've been working today. If days argument is supplied, shows log for a timecard that many days ago."
 	override val m_DetailedHelp: String? = null
-	override val m_HelpArgs: List<String> = listOf()
+	override val m_HelpArgs: List<String> = listOf("[days]")
 
 	private fun calculateDifference(startTime: LocalTime, endTime: LocalTime): Long {
 		val startTimeMinutes: Int = startTime.hour * 60 + startTime.minute
@@ -39,7 +41,7 @@ class StatusCommand : ICommand {
 		return timeWorked
 	}
 
-	private fun getTimeOnBreak(timeEntries: TimeEntries): LocalTime {
+	private fun getTimeOnBreak(timeEntries: TimeEntries, isToday: Boolean): LocalTime {
 		var timeOnBreak = LocalTime.of(0, 0)
 		val entries: List<TimeEntry> = timeEntries.m_Entries
 		for ((i, entry: TimeEntry) in entries.withIndex()) {
@@ -51,7 +53,7 @@ class StatusCommand : ICommand {
 			timeOnBreak = timeOnBreak.plusMinutes(calculateDifference(endTime, startTime))
 		}
 		// Add break time if currently clocked out
-		if(timeEntries.isClockedOut()) {
+		if(timeEntries.isClockedOut() && isToday) {
 			// TimeEntries won't be empty since that check should be done before any of this executes
 			// This means the last entry will certainly have an endTime
 			val lastEntry: TimeEntry = timeEntries.m_Entries.last()
@@ -97,7 +99,7 @@ class StatusCommand : ICommand {
 
 		val clockState = if(timeEntries.isClockedIn()) "in" else "out"
 		val color = if(timeEntries.isClockedIn()) GREEN else RED
-		println(colorize(color, "Currently clocked $clockState since $lastTime"))
+		println(colorize(color, "Clocked $clockState since $lastTime"))
 	}
 
 	private fun printTimeWorked(timeEntries: TimeEntries) {
@@ -105,21 +107,37 @@ class StatusCommand : ICommand {
 		println("Worked for ${formatTime(timeWorked)}")
 	}
 
-	private fun printBreakTime(timeEntries: TimeEntries) {
-		val timeOnBreak: LocalTime = getTimeOnBreak(timeEntries)
+	private fun printBreakTime(timeEntries: TimeEntries, isToday: Boolean) {
+		val timeOnBreak: LocalTime = getTimeOnBreak(timeEntries, isToday)
 		println("On break for ${formatTime(timeOnBreak)}")
 	}
 
 	override fun execute() {
-		val timeEntries = TimeEntries.loadFromFile()
-		if(timeEntries.m_Entries.isEmpty()) {
-			println(yellow("You haven't clocked in yet today! Use '${App.NAME} in' to clock in."))
+		val daysPrior: Long = abs(try {
+			App.getArg(1)?.toLong() ?: 0L
+		} catch (e: NumberFormatException) {
+			0L
+		})
+
+		val timeEntries = TimeEntries.loadFromFile(daysPrior)
+		val isToday = daysPrior == 0L
+
+		if (timeEntries == null || timeEntries.m_Entries.isEmpty()) {
+			if (isToday) {
+				println(yellow("You haven't clocked in yet today! Use '${App.NAME} in' to clock in."))
+			} else {
+				val s = if (daysPrior == 1L) { "" } else { "s" }
+				println(yellow("No timecard present for $daysPrior day$s ago."))
+			}
 			return
 		}
 
+		if(!isToday) {
+			println("Timecard status for ${LocalDate.now().minusDays(daysPrior)}:")
+		}
 		printClockState(timeEntries)
 		printTimeWorked(timeEntries)
-		printBreakTime(timeEntries)
+		printBreakTime(timeEntries, isToday)
 	}
 
 }

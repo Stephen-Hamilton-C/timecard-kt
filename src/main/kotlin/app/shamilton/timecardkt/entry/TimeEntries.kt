@@ -14,6 +14,7 @@ import java.nio.file.Files
 import java.nio.file.InvalidPathException
 import java.nio.file.Path
 import java.nio.file.Paths
+import kotlin.io.path.exists
 
 @Serializable
 class TimeEntries(
@@ -27,6 +28,20 @@ class TimeEntries(
 		val FILENAME: String = "timecard_${LocalDate.now()}.json"
 
 		private var _cached: TimeEntries? = null
+
+		/**
+		 * Loads a timecard from a specified amount of days before `now`.
+		 * Returns null if file does not exist.
+		 */
+		@JvmStatic fun loadFromFile(days: Long): TimeEntries? {
+			val fileName = "timecard_${LocalDate.now().minusDays(days)}.json"
+			val path = FILEPATH.resolve(fileName)
+			return if(path.exists()) {
+				loadFromFile(FILEPATH.resolve(fileName))
+			} else {
+				null
+			}
+		}
 
 		@JvmStatic fun loadFromFile(path: Path = FILEPATH.resolve(FILENAME)): TimeEntries {
 			if(_cached != null && path == FILEPATH.resolve(FILENAME)) return _cached as TimeEntries
