@@ -28,6 +28,9 @@ plugins {
 allprojects {
 	afterEvaluate {
 		exec {
+			commandLine "git", "update-index", "--skip-worktree", "src/main/kotlin/app/shamilton/timecardkt/Version.kt"
+		}
+		exec {
 			commandLine "python", "version.py"
 		}
 	}
