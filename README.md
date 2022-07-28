@@ -6,6 +6,7 @@ Quite configurable within the app itself, from 24-hour time to formatting how ti
 ## Getting Started
 1. See installation instructions in [releases](https://github.com/Stephen-Hamilton-C/timecard-kt/releases/latest)
 2. Open a terminal and run `timecard-kt in` to clock in, `timecard-kt out` to clock out, and simply `timecard-kt` to see how many hours you've worked.
+3. For a full list of commands, run `timecard-kt help`.
 
 ## Table of Contents
 - [Installation](#installation)
