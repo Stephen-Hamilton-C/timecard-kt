@@ -25,14 +25,16 @@ For example, for manually installing only for the user on Linux:
 ```
 
 ## Linux Snap
-1. Run `./gradlew snapBuild`
-2. Run `snap install ./deploy/snap/timecard-kt_*.snap`
-3. Run `timecard-kt help` to get started
+1. Run `sudo snap install snapcraft multipass`
+2. Run `./gradlew snapBuild`
+3. Run `snap install ./deploy/snap/timecard-kt_*.snap`
+4. Run `timecard-kt help` to get started
 
 ## Debian/Ubuntu
-1. Run `./gradlew debianBuild`
-2. Run `sudo apt install ./build/debian/timecard-kt*.deb`
-3. Run `timecard-kt help` to get started
+1. Run `sudo apt install build-essential devscripts debhelper`
+2. Run `./gradlew debianBuild`
+3. Run `sudo apt install ./build/debian/timecard-kt*.deb`
+4. Run `timecard-kt help` to get started
 
 ## Windows
 
