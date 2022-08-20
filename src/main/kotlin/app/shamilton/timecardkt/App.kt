@@ -11,7 +11,6 @@ import app.shamilton.timecardkt.Color.yellow
 object App {
 
 	const val NAME = "timecard-kt"
-	const val VERSION = "1.1.0"
 	const val AUTHOR = "stephen-hamilton-c"
 
 	private var _argsInitialized: Boolean = false
@@ -23,6 +22,22 @@ object App {
 	 */
 	fun getArg(index: Int): String? {
 		return if(_args.size > index) _args[index].uppercase() else null
+	}
+
+	/**
+	 * Gets all args from the provided starting index to the end of the args entered by the user.
+	 * 0 is the name of the ICommand
+	 */
+	fun getArgs(startIndex: Int): List<String>? {
+		return if(_args.size > startIndex) {
+			val args = mutableListOf<String>()
+			for(i in startIndex until _args.size) {
+				args.add(_args[i].uppercase())
+			}
+			args
+		} else {
+			null
+		}
 	}
 
 	fun setArgs(args: Array<String>) {

@@ -31,8 +31,29 @@ object LocalTimeSerializer : KSerializer<LocalTime> {
 		if(splitData.size != 2) invalidData(localTimeData)
 
 		try {
-			val hour: Int = splitData[0].toInt()
-			val minute: Int = splitData[1].toInt()
+			// Have to account for 12 hour input
+			val am = splitData[1].trim().endsWith("AM")
+			val pm = splitData[1].trim().endsWith("PM")
+			val is12Hour = am || pm
+
+			val hour: Int = if(is12Hour) {
+				var hourInput = splitData[0].toInt()
+				if (am && hourInput == 12) {
+					hourInput = 0
+				} else if (pm && hourInput < 12) {
+					hourInput += 12
+				}
+				hourInput
+			} else {
+				splitData[0].toInt()
+			}
+			val minute: Int = if (is12Hour) {
+				val splitEnd = splitData[1].split(' ')
+				if(splitEnd.size != 2) invalidData(localTimeData)
+				splitEnd[0].toInt()
+			} else {
+				splitData[1].toInt()
+			}
 
 			try {
 				return LocalTime.of(hour, minute)

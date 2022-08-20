@@ -37,6 +37,8 @@ class Configuration (
 				val data = file.readText()
 				val deserializedConfig: Configuration? = Yaml.default.decodeFromString(data)
 				configuration = deserializedConfig ?: configuration
+			} else {
+				configuration.saveToFile()
 			}
 			if (path == FILEPATH.resolve(FILENAME)) {
 				_cached = configuration

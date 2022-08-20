@@ -8,8 +8,8 @@ def getVersion():
 	os.chdir("../")
 
 	# Get app version
-	print("Determining VERSION from App.kt...")
-	APP_CLASS_PATH = os.path.join("src", "main", "kotlin", "app", "shamilton", "timecardkt", "App.kt")
+	print("Determining VERSION from Version.kt...")
+	APP_CLASS_PATH = os.path.join("src", "main", "kotlin", "app", "shamilton", "timecardkt", "Version.kt")
 	VERSION = ""
 	with open(APP_CLASS_PATH, 'r') as file:
 		for fileLine in file.readlines():
@@ -17,7 +17,7 @@ def getVersion():
 				openQuote = fileLine.find("\"")
 				closeQuote = fileLine.find("\"", openQuote+1)
 				VERSION = fileLine[openQuote+1:closeQuote]
-				print("VERSION determined from App.kt: "+VERSION)
+				print("VERSION determined from Version.kt: "+VERSION)
 				break
 
 	return VERSION
