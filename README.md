@@ -1,3 +1,6 @@
+# ARCHIVED
+This repo has been archived. This project was originally written to get an applied understanding of Kotlin. A faster and more stable version can be found here: https://github.com/Stephen-Hamilton-C/timecard
+
 # timecard-kt
 timecard-kt is a command line time tracker written in Kotlin.
 Easily clock in & out and check how much time you've worked and how long you've been on break.
